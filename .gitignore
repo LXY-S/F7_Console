@@ -10,4 +10,5 @@
 .settings
 .idea
 cmake-build-debug
-
+Debug
+*.launch
