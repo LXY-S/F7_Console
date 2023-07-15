@@ -85,7 +85,7 @@ void MX_TIM7_Init(void)
 
   /* USER CODE END TIM7_Init 1 */
   htim7.Instance = TIM7;
-  htim7.Init.Prescaler = 72 - 1;
+  htim7.Init.Prescaler = 96 - 1;
   htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim7.Init.Period = 1000;
   htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -204,5 +204,14 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 }
 
 /* USER CODE BEGIN 1 */
+static uint32_t time_1us_cnt = 0;
+
+void time_run(void) {
+    time_1us_cnt++;
+}
+
+uint32_t time_get(void) {
+    return time_1us_cnt;
+}
 
 /* USER CODE END 1 */

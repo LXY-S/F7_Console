@@ -25,6 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "mars_shell.h"
 
 /* USER CODE END Includes */
 
@@ -52,6 +53,8 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+void shell_init(void);
+void shell_output(uint8_t *pData, uint16_t len);
 
 /* USER CODE END PFP */
 
@@ -93,6 +96,7 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
+    mars_shell_init(shell_init, shell_output);
 
   /* USER CODE END 2 */
 
@@ -100,6 +104,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+      mars_shell_run();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -165,6 +170,24 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+static uint8_t mData = 0;
+void shell_init(void) {
+    HAL_UART_Receive_IT(&huart3, &mData, 1);
+}
+
+void shell_output(uint8_t *pData, uint16_t len) {
+    HAL_UART_Transmit(&huart3, pData, len, 0xFFFF);
+}
+
+/**
+  * @brief Rx Transfer completed callbacks
+  * @param huart: uart handle
+  * @retval None
+  */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+    HAL_UART_Receive_IT(&huart3, &mData, 1);
+    mars_shell_input(mData);
+}
 
 /* USER CODE END 4 */
 
@@ -185,6 +208,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
+    if (htim->Instance == TIM7) {
+        time_run();
+    }
 
   /* USER CODE END Callback 1 */
 }

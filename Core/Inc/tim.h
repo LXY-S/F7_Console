@@ -46,6 +46,8 @@ void MX_TIM7_Init(void);
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 /* USER CODE BEGIN Prototypes */
+void time_run(void);
+uint32_t time_get(void);
 
 /* USER CODE END Prototypes */
 
