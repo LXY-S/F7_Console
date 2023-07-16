@@ -17,6 +17,7 @@ typedef enum {
 
 typedef struct {
     uint32_t toggle_time;
+    uint32_t time;
     uint32_t toggle_num;
 } BlinkConfig;
 

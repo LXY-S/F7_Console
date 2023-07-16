@@ -4,17 +4,17 @@
 
 #include <stdlib.h>
 #include "mars_led_drv.h"
+#include "tim.h"
 
 static pLedHandle mLeds = NULL;
 static uint8_t mLedNum = 0;
 
 static void led_blink(pLedHandle pLed, uint32_t time) {
-    static uint32_t time_old = 0;
-    if (pLed->blink.toggle_num && pLed->blink.toggle_time + time_old >= time) {
+    if (pLed->blink.toggle_num && pLed->blink.toggle_time + pLed->blink.time <= time) {
         if (pLed->led_toggle)
             pLed->led_toggle();
         (pLed->blink.toggle_num)--;
-        time_old = time;
+        pLed->blink.time = time;
     }
 }
 
@@ -64,13 +64,19 @@ void mars_led_register(pLedHandle pLed) {
     if (pLed->breath.level < pLed->breath.min_level)
         pLed->breath.level = pLed->breath.min_level;
 
+    if (mLeds == NULL) {
+        mLedNum = 1;
+        mLeds = pLed;
+        mLeds->id = mLedNum;
+        return;
+    }
+
     pLedHandle tmp = mLeds;
-    while (tmp) {
+    while (tmp->next) {
         tmp = tmp->next;
     }
-    mLedNum++;
-    tmp = pLed;
-    tmp->id = mLedNum;
+    tmp->next = pLed;
+    pLed->id = ++mLedNum;
 }
 
 void mars_led_run(uint32_t time) {
@@ -98,6 +104,10 @@ void mars_led_blink_start(uint8_t id, BLINK_FREQ freq, uint32_t time) {
     tmp->blink.toggle_num = time / freq;
     if (tmp->blink.toggle_num % 2)
         tmp->blink.toggle_num++;
+
+    tmp->blink.time = time_get();
+    tmp->led_toggle();
+    tmp->blink.toggle_num--;
 }
 
 void mars_led_blink_stop(uint8_t id) {

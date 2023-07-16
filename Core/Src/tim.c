@@ -204,14 +204,14 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 }
 
 /* USER CODE BEGIN 1 */
-static uint32_t time_1us_cnt = 0;
+static uint32_t time_1ms_cnt = 0;
 
 void time_run(void) {
-    time_1us_cnt++;
+    time_1ms_cnt++;
 }
 
 uint32_t time_get(void) {
-    return time_1us_cnt;
+    return time_1ms_cnt;
 }
 
 /* USER CODE END 1 */
