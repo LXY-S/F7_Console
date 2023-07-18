@@ -6,7 +6,7 @@
 #define MARS_APP_H
 
 void mars_app_init(void);
-void mars_app(void);
+void mars_app_run(void);
 
 
 

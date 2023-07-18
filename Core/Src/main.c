@@ -102,7 +102,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-      mars_app();
+      mars_app_run();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -4,10 +4,11 @@
 
 #include <stdlib.h>
 #include "mars_led_drv.h"
-#include "tim.h"
 
 static pLedHandle mLeds = NULL;
 static uint8_t mLedNum = 0;
+
+extern uint32_t time_get(void);
 
 static void led_blink(pLedHandle pLed, uint32_t time) {
     if (pLed->blink.toggle_num && pLed->blink.toggle_time + pLed->blink.time <= time) {

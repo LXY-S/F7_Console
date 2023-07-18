@@ -125,6 +125,7 @@ static void shell(uint16_t argc, uint8_t *argv[]) {
                     mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\n", 19);
                 }
             }
+            break;
         default:
             mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\n", 19);
             break;
@@ -136,6 +137,14 @@ void mars_shell_init(void (*init)(void), void (*output)(uint8_t *data, uint16_t 
     memset(mShellQueue.data, 0, SHELL_DATA_LEN);
     mShellQueue.head = 0;
     mShellQueue.output = output;
+    if (mShellQueue.output) {
+        mShellQueue.output((uint8_t *) "    _/      _/                                \n", 47);
+        mShellQueue.output((uint8_t *) "   _/_/  _/_/    _/_/_/  _/  _/_/    _/_/_/   \n", 47);
+        mShellQueue.output((uint8_t *) "  _/  _/  _/  _/    _/  _/_/      _/_/        \n", 47);
+        mShellQueue.output((uint8_t *) " _/      _/  _/    _/  _/            _/_/     \n", 47);
+        mShellQueue.output((uint8_t *) "_/      _/    _/_/_/  _/        _/_/_/        \n", 47);
+        mShellQueue.output((uint8_t *) mName, 6);
+    }
 }
 
 void mars_shell_input(unsigned char data) {
