@@ -38,7 +38,7 @@
     *** How to configure Systick using CORTEX HAL driver ***
     ========================================================
     [..]
-    Setup SysTick Timer for time base.
+    Setup SysTick Timer for step base.
            
    (+) The HAL_SYSTICK_Config() function calls the SysTick_Config() function which
        is a CMSIS function that:
@@ -58,7 +58,7 @@
        HAL_NVIC_SetPriority(SysTick_IRQn,...) function just after the HAL_SYSTICK_Config() function 
        call. The HAL_NVIC_SetPriority() call the NVIC_SetPriority() function which is a CMSIS function.
 
-   (+) To adjust the SysTick time base, use the following formula:
+   (+) To adjust the SysTick step base, use the following formula:
                             
        Reload Value = SysTick Counter Clock (Hz) x  Desired Time base (s)
        (++) Reload Value is the parameter to be passed for HAL_SYSTICK_Config() function

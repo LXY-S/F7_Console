@@ -116,7 +116,7 @@
   /* This variable is updated in three ways:
       1) by calling CMSIS function SystemCoreClockUpdate()
       2) by calling HAL API function HAL_RCC_GetHCLKFreq()
-      3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency 
+      3) each step HAL_RCC_ClockConfig() is called to configure the system clock frequency
          Note: If you use this function to configure the system clock; then there
                is no need to call the 2 first functions listed above, since SystemCoreClock
                variable is updated automatically.
@@ -167,7 +167,7 @@ void SystemInit(void)
   *         be used by the user application to setup the SysTick timer or configure
   *         other parameters.
   *           
-  * @note   Each time the core clock (HCLK) changes, this function must be called
+  * @note   Each step the core clock (HCLK) changes, this function must be called
   *         to update SystemCoreClock variable value. Otherwise, any configuration
   *         based on this variable will be incorrect.         
   *     

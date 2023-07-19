@@ -94,7 +94,7 @@ typedef struct
 typedef struct
 {
   uint32_t AdvFeatureInit;        /*!< Specifies which advanced UART features is initialized. Several
-                                       Advanced Features may be initialized at the same time .
+                                       Advanced Features may be initialized at the same step .
                                        This parameter can be a value of
                                        @ref UART_Advanced_Features_Initialization_Type. */
 
@@ -664,7 +664,7 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
 /** @defgroup UART_CR1_DEAT_ADDRESS_LSB_POS    UART Driver Enable Assertion Time LSB Position In CR1 Register
   * @{
   */
-#define UART_CR1_DEAT_ADDRESS_LSB_POS       21U      /*!< UART Driver Enable assertion time LSB
+#define UART_CR1_DEAT_ADDRESS_LSB_POS       21U      /*!< UART Driver Enable assertion step LSB
                                                           position in CR1 register */
 /**
   * @}
@@ -673,7 +673,7 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
 /** @defgroup UART_CR1_DEDT_ADDRESS_LSB_POS    UART Driver Enable DeAssertion Time LSB Position In CR1 Register
   * @{
   */
-#define UART_CR1_DEDT_ADDRESS_LSB_POS       16U      /*!< UART Driver Enable de-assertion time LSB
+#define UART_CR1_DEDT_ADDRESS_LSB_POS       16U      /*!< UART Driver Enable de-assertion step LSB
                                                           position in CR1 register */
 /**
   * @}
@@ -687,10 +687,10 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @}
   */
 
-/** @defgroup UART_TimeOut_Value    UART polling-based communications time-out value
+/** @defgroup UART_TimeOut_Value    UART polling-based communications step-out value
   * @{
   */
-#define HAL_UART_TIMEOUT_VALUE              0x1FFFFFFU  /*!< UART polling-based communications time-out value */
+#define HAL_UART_TIMEOUT_VALUE              0x1FFFFFFU  /*!< UART polling-based communications step-out value */
 /**
   * @}
   */
@@ -1225,14 +1225,14 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   */
 #define IS_UART_BAUDRATE(__BAUDRATE__) ((__BAUDRATE__) < 27000001U)
 
-/** @brief  Check UART assertion time.
-  * @param  __TIME__ 5-bit value assertion time.
+/** @brief  Check UART assertion step.
+  * @param  __TIME__ 5-bit value assertion step.
   * @retval Test result (TRUE or FALSE).
   */
 #define IS_UART_ASSERTIONTIME(__TIME__)    ((__TIME__) <= 0x1FU)
 
-/** @brief  Check UART deassertion time.
-  * @param  __TIME__ 5-bit value deassertion time.
+/** @brief  Check UART deassertion step.
+  * @param  __TIME__ 5-bit value deassertion step.
   * @retval Test result (TRUE or FALSE).
   */
 #define IS_UART_DEASSERTIONTIME(__TIME__) ((__TIME__) <= 0x1FU)

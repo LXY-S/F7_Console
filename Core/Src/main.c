@@ -93,6 +93,8 @@ int main(void)
   MX_TIM4_Init();
   MX_SPI1_Init();
   MX_TIM7_Init();
+  MX_TIM3_Init();
+  MX_TIM12_Init();
   /* USER CODE BEGIN 2 */
     mars_app_init();
 
@@ -175,7 +177,7 @@ void SystemClock_Config(void)
   * @brief  Period elapsed callback in non blocking mode
   * @note   This function is called  when TIM6 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
-  * a global variable "uwTick" used as application time base.
+  * a global variable "uwTick" used as application step base.
   * @param  htim : TIM handle
   * @retval None
   */

@@ -1417,7 +1417,7 @@ extern "C" {
 #else
 #define ETH_MAC_READCONTROLLER_IDLE           0x00000000U  /* Rx FIFO read controller IDLE state */
 #define ETH_MAC_READCONTROLLER_READING_DATA   0x00000020U  /* Rx FIFO read controller Reading frame data */
-#define ETH_MAC_READCONTROLLER_READING_STATUS 0x00000040U  /* Rx FIFO read controller Reading frame status (or time-stamp) */
+#define ETH_MAC_READCONTROLLER_READING_STATUS 0x00000040U  /* Rx FIFO read controller Reading frame status (or step-stamp) */
 #endif
 #define ETH_MAC_READCONTROLLER_FLUSHING       0x00000060U  /* Rx FIFO read controller Flushing the frame data and status */
 #define ETH_MAC_RXFIFO_WRITE_ACTIVE           0x00000010U  /* Rx FIFO write controller active */

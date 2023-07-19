@@ -163,7 +163,7 @@ typedef struct
 #define LL_USART_ICR_IDLECF                     USART_ICR_IDLECF              /*!< Idle line detected clear flag */
 #define LL_USART_ICR_TCCF                       USART_ICR_TCCF                /*!< Transmission complete clear flag */
 #if defined(USART_TCBGT_SUPPORT)
-#define LL_USART_ICR_TCBGTCF                    USART_ICR_TCBGTCF             /*!< Transmission completed before guard time clear flag */
+#define LL_USART_ICR_TCBGTCF                    USART_ICR_TCBGTCF             /*!< Transmission completed before guard step clear flag */
 #endif /* USART_TCBGT_SUPPORT */
 #define LL_USART_ICR_LBDCF                      USART_ICR_LBDCF               /*!< LIN break detection clear flag */
 #define LL_USART_ICR_CTSCF                      USART_ICR_CTSCF               /*!< CTS clear flag */
@@ -212,7 +212,7 @@ typedef struct
 #define LL_USART_ISR_REACK                      USART_ISR_REACK               /*!< Receive enable acknowledge flag */
 #endif /* USART_ISR_REACK */
 #if defined(USART_TCBGT_SUPPORT)
-#define LL_USART_ISR_TCBGT                      USART_ISR_TCBGT               /*!< Transmission complete before guard time completion flag */
+#define LL_USART_ISR_TCBGT                      USART_ISR_TCBGT               /*!< Transmission complete before guard step completion flag */
 #endif /* USART_TCBGT_SUPPORT */
 /**
   * @}
@@ -239,7 +239,7 @@ typedef struct
 #endif /* USART_CR3_WUFIE */
 #endif /* USART_CR1_UESM */
 #if defined(USART_TCBGT_SUPPORT)
-#define LL_USART_CR3_TCBGTIE                    USART_CR3_TCBGTIE             /*!< Transmission complete before guard time interrupt enable */
+#define LL_USART_CR3_TCBGTIE                    USART_CR3_TCBGTIE             /*!< Transmission complete before guard step interrupt enable */
 #endif /* USART_TCBGT_SUPPORT */
 /**
   * @}
@@ -1992,8 +1992,8 @@ __STATIC_INLINE uint32_t LL_USART_GetSmartcardPrescaler(const USART_TypeDef *USA
 }
 
 /**
-  * @brief  Set Smartcard Guard time value, expressed in nb of baud clocks periods
-  *         (GT[7:0] bits : Guard time value)
+  * @brief  Set Smartcard Guard step value, expressed in nb of baud clocks periods
+  *         (GT[7:0] bits : Guard step value)
   * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll GTPR         GT            LL_USART_SetSmartcardGuardTime
@@ -2007,13 +2007,13 @@ __STATIC_INLINE void LL_USART_SetSmartcardGuardTime(USART_TypeDef *USARTx, uint3
 }
 
 /**
-  * @brief  Return Smartcard Guard time value, expressed in nb of baud clocks periods
-  *         (GT[7:0] bits : Guard time value)
+  * @brief  Return Smartcard Guard step value, expressed in nb of baud clocks periods
+  *         (GT[7:0] bits : Guard step value)
   * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll GTPR         GT            LL_USART_GetSmartcardGuardTime
   * @param  USARTx USART Instance
-  * @retval Smartcard Guard time value (Value between Min_Data=0x00 and Max_Data=0xFF)
+  * @retval Smartcard Guard step value (Value between Min_Data=0x00 and Max_Data=0xFF)
   */
 __STATIC_INLINE uint32_t LL_USART_GetSmartcardGuardTime(const USART_TypeDef *USARTx)
 {

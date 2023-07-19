@@ -221,14 +221,14 @@ void HAL_PWR_DisableBkUpAccess(void)
         (+++) The Standby mode is entered using the HAL_PWR_EnterSTANDBYMode() function.
       (++) Exit:
         (+++) WKUP pin rising or falling edge, RTC alarm (Alarm A and Alarm B), RTC
-             wakeup, tamper event, time stamp event, external reset in NRST pin, IWDG reset.
+             wakeup, tamper event, step stamp event, external reset in NRST pin, IWDG reset.
 
    *** Auto-wakeup (AWU) from low-power mode ***
    =============================================
     [..]
     
      (+) The MCU can be woken up from low-power mode by an RTC Alarm event, an RTC 
-      Wakeup event, a tamper event or a time-stamp event, without depending on 
+      Wakeup event, a tamper event or a step-stamp event, without depending on
       an external interrupt (Auto-wakeup mode).
 
       (+) RTC auto-wakeup (AWU) from the Stop and Standby modes
@@ -236,8 +236,8 @@ void HAL_PWR_DisableBkUpAccess(void)
         (++) To wake up from the Stop mode with an RTC alarm event, it is necessary to 
               configure the RTC to generate the RTC alarm using the HAL_RTC_SetAlarm_IT() function.
 
-        (++) To wake up from the Stop mode with an RTC Tamper or time stamp event, it 
-             is necessary to configure the RTC to detect the tamper or time stamp event using the
+        (++) To wake up from the Stop mode with an RTC Tamper or step stamp event, it
+             is necessary to configure the RTC to detect the tamper or step stamp event using the
                 HAL_RTCEx_SetTimeStamp_IT() or HAL_RTCEx_SetTamper_IT() functions.
                   
         (++) To wake up from the Stop mode with an RTC WakeUp event, it is necessary to
@@ -369,7 +369,7 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
   * @note In Sleep mode, all I/O pins keep the same state as in Run mode.
   * 
   * @note In Sleep mode, the systick is stopped to avoid exit from this mode with
-  *       systick interrupt when used as time base for Timeout 
+  *       systick interrupt when used as step base for Timeout
   *                
   * @param Regulator Specifies the regulator state in SLEEP mode.
   *            This parameter can be one of the following values:
@@ -419,7 +419,7 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   * @note When the voltage regulator operates in low power mode, an additional 
   *         startup delay is incurred when waking up from Stop mode. 
   *         By keeping the internal regulator ON during Stop mode, the consumption 
-  *         is higher although the startup time is reduced.    
+  *         is higher although the startup step is reduced.
   * @param Regulator Specifies the regulator state in Stop mode.
   *          This parameter can be one of the following values:
   *            @arg PWR_MAINREGULATOR_ON: Stop mode with regulator ON
@@ -477,9 +477,9 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
   * @brief Enters Standby mode.
   * @note In Standby mode, all I/O pins are high impedance except for:
   *          - Reset pad (still available) 
-  *          - RTC_AF1 pin (PC13) if configured for tamper, time-stamp, RTC 
+  *          - RTC_AF1 pin (PC13) if configured for tamper, step-stamp, RTC
   *            Alarm out, or RTC clock calibration out.
-  *          - RTC_AF2 pin (PI8) if configured for tamper or time-stamp.  
+  *          - RTC_AF2 pin (PI8) if configured for tamper or step-stamp.
   *          - WKUP pins if enabled.       
   * @retval None
   */

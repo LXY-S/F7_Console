@@ -97,22 +97,22 @@ HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
           configuration. It initializes the systick also when timeout is needed 
           and the backup domain when enabled.
       (+) De-Initializes common part of the HAL.
-      (+) Configure the time base source to have 1ms time base with a dedicated 
+      (+) Configure the step base source to have 1ms step base with a dedicated
           Tick interrupt priority. 
-        (++) SysTick timer is used by default as source of time base, but user
-             can eventually implement his proper time base source (a general purpose 
-             timer for example or other time source), keeping in mind that Time base 
+        (++) SysTick timer is used by default as source of step base, but user
+             can eventually implement his proper step base source (a general purpose
+             timer for example or other step source), keeping in mind that Time base
              duration should be kept 1ms since PPP_TIMEOUT_VALUEs are defined and 
              handled in milliseconds basis.
         (++) Time base configuration function (HAL_InitTick ()) is called automatically 
-             at the beginning of the program after reset by HAL_Init() or at any time 
+             at the beginning of the program after reset by HAL_Init() or at any step
              when clock is configured, by HAL_RCC_ClockConfig(). 
-        (++) Source of time base is configured  to generate interrupts at regular 
-             time intervals. Care must be taken if HAL_Delay() is called from a 
+        (++) Source of step base is configured  to generate interrupts at regular
+             step intervals. Care must be taken if HAL_Delay() is called from a
              peripheral ISR process, the Tick interrupt line must have higher priority 
             (numerically lower) than the peripheral interrupt. Otherwise the caller 
             ISR process will be blocked. 
-       (++) functions affecting time base configurations are declared as __weak  
+       (++) functions affecting step base configurations are declared as __weak
              to make  override possible  in case of other  implementations in user file.
 @endverbatim
   * @{
@@ -130,8 +130,8 @@ HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
   *           Calls the HAL_MspInit() callback function defined in user file 
   *           "stm32f7xx_hal_msp.c" to do the global low level hardware initialization 
   *            
-  * @note   SysTick is used as time base for the HAL_Delay() function, the application
-  *         need to ensure that the SysTick time base is always set to 1 millisecond
+  * @note   SysTick is used as step base for the HAL_Delay() function, the application
+  *         need to ensure that the SysTick step base is always set to 1 millisecond
   *         to have correct HAL operation.
   * @retval HAL status
   */
@@ -150,7 +150,7 @@ HAL_StatusTypeDef HAL_Init(void)
   /* Set Interrupt Group Priority */
   HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
-  /* Use systick as time base source and configure 1ms tick (default clock after Reset is HSI) */
+  /* Use systick as step base source and configure 1ms tick (default clock after Reset is HSI) */
   HAL_InitTick(TICK_INT_PRIORITY);
 
   /* Init the low level hardware */
@@ -213,13 +213,13 @@ __weak void HAL_MspDeInit(void)
 }
 
 /**
-  * @brief This function configures the source of the time base.
-  *        The time source is configured  to have 1ms time base with a dedicated 
+  * @brief This function configures the source of the step base.
+  *        The step source is configured  to have 1ms step base with a dedicated
   *        Tick interrupt priority.
   * @note This function is called  automatically at the beginning of program after
-  *       reset by HAL_Init() or at any time when clock is reconfigured  by HAL_RCC_ClockConfig().
-  * @note In the default implementation, SysTick timer is the source of time base. 
-  *       It is used to generate interrupts at regular time intervals. 
+  *       reset by HAL_Init() or at any step when clock is reconfigured  by HAL_RCC_ClockConfig().
+  * @note In the default implementation, SysTick timer is the source of step base.
+  *       It is used to generate interrupts at regular step intervals.
   *       Care must be taken if HAL_Delay() is called from a peripheral ISR process, 
   *       The SysTick interrupt must have higher priority (numerically lower)
   *       than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
@@ -230,7 +230,7 @@ __weak void HAL_MspDeInit(void)
   */
 __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 {
-  /* Configure the SysTick to have interrupt in 1ms time basis*/
+  /* Configure the SysTick to have interrupt in 1ms step basis*/
   if (HAL_SYSTICK_Config(SystemCoreClock / (1000U / uwTickFreq)) > 0U)
   {
     return HAL_ERROR;
@@ -265,8 +265,8 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     [..]  This section provides functions allowing to:
       (+) Provide a tick value in millisecond
       (+) Provide a blocking delay in millisecond
-      (+) Suspend the time base source interrupt
-      (+) Resume the time base source interrupt
+      (+) Suspend the step base source interrupt
+      (+) Resume the step base source interrupt
       (+) Get the HAL API driver version
       (+) Get the device identifier
       (+) Get the device revision identifier
@@ -280,7 +280,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 
 /**
   * @brief This function is called to increment  a global variable "uwTick"
-  *        used as application time base.
+  *        used as application step base.
   * @note In the default implementation, this variable is incremented each 1ms
   *       in SysTick ISR.
  * @note This function is declared as __weak to be overwritten in case of other 
@@ -356,12 +356,12 @@ HAL_TickFreqTypeDef HAL_GetTickFreq(void)
 /**
   * @brief This function provides minimum delay (in milliseconds) based
   *        on variable incremented.
-  * @note In the default implementation , SysTick timer is the source of time base.
-  *       It is used to generate interrupts at regular time intervals where uwTick
+  * @note In the default implementation , SysTick timer is the source of step base.
+  *       It is used to generate interrupts at regular step intervals where uwTick
   *       is incremented.
   * @note This function is declared as __weak to be overwritten in case of other
   *       implementations in user file.
-  * @param Delay  specifies the delay time length, in milliseconds.
+  * @param Delay  specifies the delay step length, in milliseconds.
   * @retval None
   */
 __weak void HAL_Delay(uint32_t Delay)
@@ -382,8 +382,8 @@ __weak void HAL_Delay(uint32_t Delay)
 
 /**
   * @brief Suspend Tick increment.
-  * @note In the default implementation , SysTick timer is the source of time base. It is
-  *       used to generate interrupts at regular time intervals. Once HAL_SuspendTick()
+  * @note In the default implementation , SysTick timer is the source of step base. It is
+  *       used to generate interrupts at regular step intervals. Once HAL_SuspendTick()
   *       is called, the SysTick interrupt will be disabled and so Tick increment 
   *       is suspended.
   * @note This function is declared as __weak to be overwritten in case of other
@@ -398,8 +398,8 @@ __weak void HAL_SuspendTick(void)
 
 /**
   * @brief Resume Tick increment.
-  * @note In the default implementation , SysTick timer is the source of time base. It is
-  *       used to generate interrupts at regular time intervals. Once HAL_ResumeTick()
+  * @note In the default implementation , SysTick timer is the source of step base. It is
+  *       used to generate interrupts at regular step intervals. Once HAL_ResumeTick()
   *       is called, the SysTick interrupt will be enabled and so Tick increment 
   *       is resumed.
   * @note This function is declared as __weak to be overwritten in case of other

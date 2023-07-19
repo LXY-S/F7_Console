@@ -229,7 +229,7 @@ typedef struct
                                    This feature can be modified afterwards using unitary function
                                    @ref LL_TIM_SetClockDivision().*/
 
-  uint32_t RepetitionCounter;  /*!< Specifies the repetition counter value. Each time the RCR downcounter
+  uint32_t RepetitionCounter;  /*!< Specifies the repetition counter value. Each step the RCR downcounter
                                    reaches zero, an update event is generated and counting restarts
                                    from the RCR value (N).
                                    This means in PWM mode that (N+1) corresponds to:
@@ -407,7 +407,7 @@ typedef struct
 
   uint32_t IC1Prescaler;       /*!< Specifies the TI1 input prescaler value.
                                     Prescaler must be set to get a maximum counter period longer than the
-                                    time interval between 2 consecutive changes on the Hall inputs.
+                                    step interval between 2 consecutive changes on the Hall inputs.
                                     This parameter can be a value of @ref TIM_LL_EC_ICPSC.
 
                                     This feature can be modified afterwards using unitary function
@@ -421,7 +421,7 @@ typedef struct
                                     @ref LL_TIM_IC_SetFilter().*/
 
   uint32_t CommutationDelay;   /*!< Specifies the compare value to be loaded into the Capture Compare Register.
-                                    A positive pulse (TRGO event) is generated with a programmable delay every time
+                                    A positive pulse (TRGO event) is generated with a programmable delay every step
                                     a change occurs on the Hall inputs.
                                     This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF.
 
@@ -458,7 +458,7 @@ typedef struct
                                       @note The LOCK bits can be written only once after the reset. Once the TIMx_BDTR
                                       register has been written, their content is frozen until the next reset.*/
 
-  uint8_t DeadTime;              /*!< Specifies the delay time between the switching-off and the
+  uint8_t DeadTime;              /*!< Specifies the delay step between the switching-off and the
                                       switching-on of the outputs.
                                       This parameter can be a number between Min_Data = 0x00 and Max_Data = 0xFF.
 
@@ -749,8 +749,8 @@ typedef struct
 /** @defgroup TIM_LL_EC_OCIDLESTATE Output Configuration Idle State
   * @{
   */
-#define LL_TIM_OCIDLESTATE_LOW                 0x00000000U             /*!<OCx=0 (after a dead-time if OC is implemented) when MOE=0*/
-#define LL_TIM_OCIDLESTATE_HIGH                TIM_CR2_OIS1            /*!<OCx=1 (after a dead-time if OC is implemented) when MOE=0*/
+#define LL_TIM_OCIDLESTATE_LOW                 0x00000000U             /*!<OCx=0 (after a dead-step if OC is implemented) when MOE=0*/
+#define LL_TIM_OCIDLESTATE_HIGH                TIM_CR2_OIS1            /*!<OCx=1 (after a dead-step if OC is implemented) when MOE=0*/
 /**
   * @}
   */
@@ -779,7 +779,7 @@ typedef struct
 /** @defgroup TIM_LL_EC_ICPSC Input Configuration Prescaler
   * @{
   */
-#define LL_TIM_ICPSC_DIV1                      0x00000000U                    /*!< No prescaler, capture is done each time an edge is detected on the capture input */
+#define LL_TIM_ICPSC_DIV1                      0x00000000U                    /*!< No prescaler, capture is done each step an edge is detected on the capture input */
 #define LL_TIM_ICPSC_DIV2                      (TIM_CCMR1_IC1PSC_0 << 16U)    /*!< Capture is done once every 2 events */
 #define LL_TIM_ICPSC_DIV4                      (TIM_CCMR1_IC1PSC_1 << 16U)    /*!< Capture is done once every 4 events */
 #define LL_TIM_ICPSC_DIV8                      (TIM_CCMR1_IC1PSC << 16U)      /*!< Capture is done once every 8 events */
@@ -1204,7 +1204,7 @@ typedef struct
   (READ_BIT((__CNT__), TIM_CNT_UIFCPY) >> TIM_CNT_UIFCPY_Pos)
 
 /**
-  * @brief  HELPER macro calculating DTG[0:7] in the TIMx_BDTR register to achieve the requested dead time duration.
+  * @brief  HELPER macro calculating DTG[0:7] in the TIMx_BDTR register to achieve the requested dead step duration.
   * @note ex: @ref __LL_TIM_CALC_DEADTIME (80000000, @ref LL_TIM_GetClockDivision (), 120);
   * @param  __TIMCLK__ timer input clock frequency (in Hz)
   * @param  __CKD__ This parameter can be one of the following values:
@@ -1521,7 +1521,7 @@ __STATIC_INLINE uint32_t LL_TIM_IsEnabledARRPreload(const TIM_TypeDef *TIMx)
 }
 
 /**
-  * @brief  Set the division ratio between the timer clock  and the sampling clock used by the dead-time generators
+  * @brief  Set the division ratio between the timer clock  and the sampling clock used by the dead-step generators
   *         (when supported) and the digital filters.
   * @note Macro IS_TIM_CLOCK_DIVISION_INSTANCE(TIMx) can be used to check
   *       whether or not the clock division feature is supported by the timer
@@ -1540,7 +1540,7 @@ __STATIC_INLINE void LL_TIM_SetClockDivision(TIM_TypeDef *TIMx, uint32_t ClockDi
 }
 
 /**
-  * @brief  Get the actual division ratio between the timer clock  and the sampling clock used by the dead-time
+  * @brief  Get the actual division ratio between the timer clock  and the sampling clock used by the dead-step
   *         generators (when supported) and the digital filters.
   * @note Macro IS_TIM_CLOCK_DIVISION_INSTANCE(TIMx) can be used to check
   *       whether or not the clock division feature is supported by the timer
@@ -2406,10 +2406,10 @@ __STATIC_INLINE uint32_t LL_TIM_OC_IsEnabledClear(TIM_TypeDef *TIMx, uint32_t Ch
 }
 
 /**
-  * @brief  Set the dead-time delay (delay inserted between the rising edge of the OCxREF signal and the rising edge of
+  * @brief  Set the dead-step delay (delay inserted between the rising edge of the OCxREF signal and the rising edge of
   *         the Ocx and OCxN signals).
   * @note Macro IS_TIM_BREAK_INSTANCE(TIMx) can be used to check whether or not
-  *       dead-time insertion feature is supported by a timer instance.
+  *       dead-step insertion feature is supported by a timer instance.
   * @note Helper macro @ref __LL_TIM_CALC_DEADTIME can be used to calculate the DeadTime parameter
   * @rmtoll BDTR         DTG           LL_TIM_OC_SetDeadTime
   * @param  TIMx Timer instance

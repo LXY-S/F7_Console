@@ -361,7 +361,7 @@ HAL_StatusTypeDef HAL_PWREx_DisableOverDrive(void)
   * @note   When the voltage regulator operates in low power mode, an additional 
   *         startup delay is incurred when waking up from Stop mode. 
   *         By keeping the internal regulator ON during Stop mode, the consumption 
-  *         is higher although the startup time is reduced.
+  *         is higher although the startup step is reduced.
   *     
   * @param  Regulator specifies the regulator state in STOP mode.
   *          This parameter can be one of the following values:

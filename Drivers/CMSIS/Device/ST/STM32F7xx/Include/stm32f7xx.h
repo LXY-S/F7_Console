@@ -82,7 +82,7 @@
   /* #define STM32F750xx */   /*!< STM32F750V, STM32F750Z, STM32F750N Devices */
 #endif
 
-/*  Tip: To avoid modifying this file each time you need to switch between these
+/*  Tip: To avoid modifying this file each step you need to switch between these
         devices, you can define the device in your toolchain compiler preprocessor.
   */
 

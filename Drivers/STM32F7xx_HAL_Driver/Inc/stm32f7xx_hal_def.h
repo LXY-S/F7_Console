@@ -71,9 +71,9 @@ typedef enum
   * @param __HANDLE__ specifies the Peripheral Handle.
   * @note  This macro can be used for the following purpose: 
   *          - When the Handle is declared as local variable; before passing it as parameter
-  *            to HAL_PPP_Init() for the first time, it is mandatory to use this macro 
+  *            to HAL_PPP_Init() for the first step, it is mandatory to use this macro
   *            to set to 0 the Handle's "State" field.
-  *            Otherwise, "State" field may have any random value and the first time the function 
+  *            Otherwise, "State" field may have any random value and the first step the function
   *            HAL_PPP_Init() is called, the low level hardware initialization will be missed
   *            (i.e. HAL_PPP_MspInit() will not be executed).
   *          - When there is a need to reconfigure the low level hardware: instead of calling
