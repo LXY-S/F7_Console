@@ -10,35 +10,41 @@ static uint8_t mLedNum = 0;
 
 extern uint32_t time_get(void);
 
-static void led_blink(pLedHandle pLed, uint32_t time) {
-    if (pLed->blink.toggle_num && pLed->blink.toggle_time + pLed->blink.time <= time) {
+static void led_blink(pLedHandle pLed) {
+    if (pLed->blink.toggle_num && pLed->blink.toggle_time + pLed->blink.time <= time_get()) {
         if (pLed->led_toggle)
             pLed->led_toggle();
         (pLed->blink.toggle_num)--;
-        pLed->blink.time = time;
+        pLed->blink.time = time_get();
     }
 }
 
-static void led_breath(pLedHandle pLed, uint32_t time) {
+static void led_breath(pLedHandle pLed) {
     static uint32_t time_old = 0;
 
-    if (!pLed->breath.time || !pLed->breath.set_time)
+    if (!pLed->breath.step || !pLed->breath.set_time)
         return;
 
-    if (pLed->breath.time + time_old >= time) {
-        if (abs((int8_t)pLed->breath.set_level - (int8_t)pLed->breath.level) < pLed->breath.set_time / pLed->breath.time) {
+    if (pLed->breath.time + time_old <= time_get()) {
+        if (abs((int8_t)pLed->breath.set_level - (int8_t)pLed->breath.level) < pLed->breath.step) {
             pLed->breath.level = pLed->breath.set_level;
         } else if (pLed->breath.set_level > pLed->breath.level) {
-            pLed->breath.level += pLed->breath.set_time / pLed->breath.time;
+            pLed->breath.level += pLed->breath.step;
         } else if (pLed->breath.set_level < pLed->breath.level) {
-            pLed->breath.level -= pLed->breath.set_time / pLed->breath.time;
+            pLed->breath.level -= pLed->breath.step;
         } else {
             pLed->breath.set_time = 0;
-            pLed->breath.time = 0;
+            pLed->breath.step = 0;
         }
-        if (pLed->led_level_set && pLed->blink.toggle_num % 2)
-            pLed->led_level_set(pLed->breath.level);
-        time_old = time;
+        if (pLed->led_level_set) {
+        	if (pLed->blink.toggle_num) {
+        		if (pLed->blink.toggle_num % 2)
+        			pLed->led_level_set(pLed->breath.level);
+        	} else {
+        		pLed->led_level_set(pLed->breath.level);
+        	}
+        }
+        time_old = time_get();
     }
 }
 
@@ -80,14 +86,14 @@ void mars_led_register(pLedHandle pLed) {
     pLed->id = ++mLedNum;
 }
 
-void mars_led_run(uint32_t time) {
+void mars_led_run(void) {
     if (mLeds == NULL)
         return;
 
     pLedHandle tmp = mLeds;
     while (tmp) {
-        led_blink(tmp, time);
-        led_breath(tmp, time);
+        led_blink(tmp);
+        led_breath(tmp);
         tmp = tmp->next;
     }
 }
@@ -139,7 +145,8 @@ void mars_led_breath_start(uint8_t id, uint8_t level, uint32_t time) {
 
     tmp->breath.set_level = level;
     tmp->breath.set_time = time;
-    tmp->breath.time = abs((int8_t)tmp->breath.set_level - (int8_t)tmp->breath.level);
+    tmp->breath.time = time / 100;
+    tmp->breath.step = abs((int8_t)tmp->breath.set_level - (int8_t)tmp->breath.level) / 100;
 }
 
 void mars_led_breath_stop(uint8_t id) {
@@ -153,5 +160,5 @@ void mars_led_breath_stop(uint8_t id) {
 
     tmp->breath.set_level = tmp->breath.level;
     tmp->breath.set_time = 0;
-    tmp->breath.time = 0;
+    tmp->breath.step = 0;
 }

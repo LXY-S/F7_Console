@@ -26,8 +26,9 @@ typedef struct {
     uint8_t set_level;
     uint8_t max_level;
     uint8_t min_level;
-    uint32_t time;      // ms
+    uint32_t step;
     uint32_t set_time;  // ms
+    uint32_t time;      // ms
 } BreathConfig;
 
 struct Led_t {
@@ -47,7 +48,7 @@ typedef struct Led_t *pLedHandle;
 void mars_led_init(void (*init)(void));
 void mars_led_reset(void);
 void mars_led_register(pLedHandle pLed);
-void mars_led_run(uint32_t time);
+void mars_led_run(void);
 void mars_led_blink_start(uint8_t id, BLINK_FREQ freq, uint32_t time);
 void mars_led_blink_stop(uint8_t id);
 void mars_led_breath_start(uint8_t id, uint8_t level, uint32_t time);
