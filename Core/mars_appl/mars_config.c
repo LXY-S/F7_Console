@@ -29,64 +29,133 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 /* shell config end */
 
 /* led config start */
+static uint8_t *yellow_value;
+static uint8_t *blue_value;
+static uint8_t *red_value;
+static bool yellow_flag = false;
+static bool blue_flag = false;
+static bool red_flag = false;
+
+static void led_yellow_level_set(uint8_t value) {
+    if (value)
+        yellow_flag = true;
+    else
+        yellow_flag = false;
+    *((uint32_t *)0x4000043C) = value * 10;
+}
+
 static void led_yellow_on(void) {
-    HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_SET);
+    led_yellow_level_set(*yellow_value);
+
 }
 
 static void led_yellow_off(void) {
-    HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_RESET);
+    led_yellow_level_set(0);
 }
 
 static void led_yellow_toggle(void) {
-    HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
+    if (yellow_flag) {
+        led_yellow_off();
+        yellow_flag = false;
+    } else {
+        led_yellow_on();
+        yellow_flag = true;
+    }
+}
+
+static void led_blue_level_set(uint8_t value) {
+    if (value)
+        blue_flag = true;
+    else
+        blue_flag = false;
+	*((uint32_t *)0x40000838) = value * 10;
 }
 
 static void led_blue_on(void) {
-    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+    led_blue_level_set(*blue_value);
 }
 
 static void led_blue_off(void) {
-    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+    led_blue_level_set(0);
 }
 
 static void led_blue_toggle(void) {
-    HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+    if (blue_flag) {
+        led_blue_off();
+        blue_flag = false;
+    } else {
+        led_blue_on();
+        blue_flag = true;
+    }
+}
+
+static void led_red_level_set(uint8_t value) {
+    if (value)
+        red_flag = true;
+    else
+        red_flag = false;
+	*((uint32_t *)0x40001834) = value * 10;
 }
 
 static void led_red_on(void) {
-    HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
+    led_red_level_set(*red_value);
 }
 
 static void led_red_off(void) {
-    HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+    led_red_level_set(0);
 }
 
 static void led_red_toggle(void) {
-    HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+    if (red_flag) {
+        led_red_off();
+        red_flag = false;
+    } else {
+        led_red_on();
+        red_flag = true;
+    }
 }
 
 static LedHandle led_yellow = {
+        .breath.max_level = 100,
+        .breath.min_level = 0,
+        .breath.level = 0,
+        .led_level_set = led_yellow_level_set,
         .led_on = led_yellow_on,
         .led_off = led_yellow_off,
         .led_toggle = led_yellow_toggle,
 };
 
 static LedHandle led_blue = {
+        .breath.max_level = 100,
+        .breath.min_level = 0,
+        .breath.level = 0,
+        .led_level_set = led_blue_level_set,
         .led_on = led_blue_on,
         .led_off = led_blue_off,
         .led_toggle = led_blue_toggle,
 };
 
 static LedHandle led_red = {
+        .breath.max_level = 100,
+        .breath.min_level = 0,
+        .breath.level = 0,
+        .led_level_set = led_red_level_set,
         .led_on = led_red_on,
         .led_off = led_red_off,
         .led_toggle = led_red_toggle,
 };
 
 void led_init(void) {
+    yellow_value = &led_yellow.breath.level;
+    blue_value = &led_blue.breath.level;
+    red_value = &led_red.breath.level;
     mars_led_register(&led_yellow);
     mars_led_register(&led_blue);
     mars_led_register(&led_red);
+
+    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
+    HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_2);
+    HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_1);
 }
 
 /* led config end */
@@ -111,7 +180,7 @@ static void key1_up_event(void) {
 
 KeyHandle mKey = {
         .value = KEY_VALUE_1,
-        .press_time = 1000,
+        .press_time = 2000,
         .ins_time = 250,
         .single_event = key1_single_event,
         .double_event = key1_double_event,
@@ -140,9 +209,17 @@ static TaskHandle KeyTask = {
         .task = mars_key_proc
 };
 
+static TaskHandle ledTask = {
+        .time = 1,
+        .task = mars_led_run,
+};
+
 void task_init(void) {
     mars_key_init(key_init, key_scan);
     mars_task_register(&KeyTask);
+
+    mars_led_init(led_init);
+    mars_task_register(&ledTask);
 }
 
 /* task config end */

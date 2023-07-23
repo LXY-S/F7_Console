@@ -10,6 +10,8 @@
 #include "mars_task.h"
 #include "mars_key_drv.h"
 
+#include "tim.h"
+
 void shell_init(void);
 void shell_output(uint8_t *pData, uint16_t len);
 
