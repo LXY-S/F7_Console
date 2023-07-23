@@ -42,51 +42,61 @@ static uint16_t string_split(uint8_t *string, uint16_t len, uint8_t *argv, uint1
 
 static void led_shell(void) {
     uint8_t led_id = mStr[1][3];
-    BLINK_FREQ freq;
 
-    if (strcmp((char *) mStr[3], "0.5Hz") == 0) {
-        freq = BLINK_FREQ_05HZ;
-    } else if (strcmp((char *) mStr[3], "1Hz") == 0) {
-        freq = BLINK_FREQ_1HZ;
-    } else if (strcmp((char *) mStr[3], "2Hz") == 0) {
-        freq = BLINK_FREQ_2HZ;
-    } else if (strcmp((char *) mStr[3], "8Hz") == 0) {
-        freq = BLINK_FREQ_8HZ;
-    } else if (strcmp((char *) mStr[3], "20Hz") == 0) {
-        freq = BLINK_FREQ_20HZ;
-    } else {
-        mShellQueue.output((uint8_t *) "eg: mars led1 blink 8Hz 1000\n", 29);
+    if (led_id != '1' && led_id != '2' && led_id != '3')
         return;
+
+    if (strcmp((char *) mStr[2], "blink") == 0) {
+        BLINK_FREQ freq;
+        if (strcmp((char *) mStr[3], "0.5Hz") == 0) {
+            freq = BLINK_FREQ_05HZ;
+        } else if (strcmp((char *) mStr[3], "1Hz") == 0) {
+            freq = BLINK_FREQ_1HZ;
+        } else if (strcmp((char *) mStr[3], "2Hz") == 0) {
+            freq = BLINK_FREQ_2HZ;
+        } else if (strcmp((char *) mStr[3], "8Hz") == 0) {
+            freq = BLINK_FREQ_8HZ;
+        } else if (strcmp((char *) mStr[3], "20Hz") == 0) {
+            freq = BLINK_FREQ_20HZ;
+        } else {
+            mShellQueue.output((uint8_t *) "freq: 0.5Hz 1Hz 2Hz 8Hz 20Hz\n", 29);
+            return;
+        }
+
+        uint32_t time = (int) atoi((char *) mStr[4]);
+        switch (led_id) {
+            case '1':
+                mars_led_blink_start(1, freq, time);
+                break;
+            case '2':
+                mars_led_blink_start(2, freq, time);
+                break;
+            case '3':
+                mars_led_blink_start(3, freq, time);
+                break;
+            default:
+                mShellQueue.output((uint8_t *) "led: led1 led2 led3\n", 20);
+                break;
+        }
     }
 
-    switch (led_id) {
-        case '1':
-            if (strcmp((char *) mStr[2], "blink") == 0) {
-                uint32_t time = (int) atoi((char *) mStr[4]);
-                mars_led_blink_start(1, freq, time);
-            } else {
-                mShellQueue.output((uint8_t *) "eg: mars led1 blink 8Hz 1000\n", 29);
-            }
-            break;
-        case '2':
-            if (strcmp((char *) mStr[2], "blink") == 0) {
-                uint32_t time = (int) atoi((char *) mStr[4]);
-                mars_led_blink_start(2, freq, time);
-            } else {
-                mShellQueue.output((uint8_t *) "eg: mars led1 blink 8Hz 1000\n", 29);
-            }
-            break;
-        case '3':
-            if (strcmp((char *) mStr[2], "blink") == 0) {
-                uint32_t time = (int) atoi((char *) mStr[4]);
-                mars_led_blink_start(3, freq, time);
-            } else {
-                mShellQueue.output((uint8_t *) "eg: mars led1 blink 8Hz 1000\n", 29);
-            }
-            break;
-        default:
-            mShellQueue.output((uint8_t *) "eg: mars led1 blink 8Hz 1000\n", 29);
-            break;
+    if (strcmp((char *) mStr[2], "breath") == 0) {
+        uint8_t level = (int) atoi((char *) mStr[3]);
+        uint32_t time = (int) atoi((char *) mStr[4]);
+        switch (led_id) {
+            case '1':
+                mars_led_breath_start(1, level, time);
+                break;
+            case '2':
+                mars_led_breath_start(2, level, time);
+                break;
+            case '3':
+                mars_led_breath_start(3, level, time);
+                break;
+            default:
+                mShellQueue.output((uint8_t *) "led: led1 led2 led3\n", 20);
+                break;
+        }
     }
 }
 
@@ -97,7 +107,7 @@ static void shell(uint16_t argc, uint8_t *argv[]) {
     switch (argc) {
         case 1:
             if (strcmp((char *) mStr[0], "mars") == 0) {
-                mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\n", 19);
+                mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|0ff>\n", 41);
             } else {
 
             }
@@ -105,7 +115,10 @@ static void shell(uint16_t argc, uint8_t *argv[]) {
         case 2:
             if ((strcmp((char *) mStr[0], "mars") == 0)) {
                 if (strcmp((char *) mStr[1], "info") == 0) {
-                    mShellQueue.output((uint8_t *) "Nucleo-F767ZI\n", 14);
+                    mShellQueue.output((uint8_t *) "MCU : Nucleo-F767ZI\n", 20);
+                    mShellQueue.output((uint8_t *) "Version : V1.0.0\n", 17);
+                    mShellQueue.output((uint8_t *) "Developer : Mars\n", 17);
+                    mShellQueue.output((uint8_t *) "Email : mars_29@qq.com\n", 23);
                 } else if (strcmp((char *) mStr[1], "logo") == 0) {
                     mShellQueue.output((uint8_t *) "    _/      _/                                \n", 47);
                     mShellQueue.output((uint8_t *) "   _/_/  _/_/    _/_/_/  _/  _/_/    _/_/_/   \n", 47);
@@ -113,7 +126,41 @@ static void shell(uint16_t argc, uint8_t *argv[]) {
                     mShellQueue.output((uint8_t *) " _/      _/  _/    _/  _/            _/_/     \n", 47);
                     mShellQueue.output((uint8_t *) "_/      _/    _/_/_/  _/        _/_/_/        \n", 47);
                 } else {
-                    mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\n", 19);
+                    mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|0ff>\n", 41);
+                }
+            }
+            break;
+        case 3:
+            if ((strcmp((char *) mStr[0], "mars") == 0)) {
+                if (strncmp((char *) mStr[1], "led", 3) == 0) {
+                    uint8_t id;
+                    switch (mStr[1][3]) {
+                        case '1':
+                            id = 1;
+                            break;
+                        case '2':
+                            id = 2;
+                            break;
+                        case '3':
+                            id = 3;
+                            break;
+                        default:
+                            mShellQueue.output((uint8_t *) "led: led1 led2 led3\n", 20);
+                            break;
+                    }
+                    if (strcmp((char *) mStr[2], "on") == 0) {
+                        mars_led_switch(id, 1);
+                    } else if (strcmp((char *) mStr[2], "off") == 0) {
+                        mars_led_switch(id, 0);
+                    }
+                } else if (strcmp((char *) mStr[1], "led_all") == 0) {
+                    if (strcmp((char *) mStr[2], "on") == 0) {
+                        mars_leds_switch(1);
+                    } else if (strcmp((char *) mStr[2], "off") == 0) {
+                        mars_leds_switch(0);
+                    }
+                } else {
+                    mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|0ff>\n", 41);
                 }
             }
             break;
@@ -122,12 +169,12 @@ static void shell(uint16_t argc, uint8_t *argv[]) {
                 if (strncmp((char *) mStr[1], "led", 3) == 0) {
                     led_shell();
                 } else {
-                    mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\n", 19);
+                    mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|0ff>\n", 41);
                 }
             }
             break;
         default:
-            mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\n", 19);
+            mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|0ff>\n", 41);
             break;
     }
 }
