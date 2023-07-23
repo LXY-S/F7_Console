@@ -20,21 +20,17 @@ static void led_blink(pLedHandle pLed) {
 }
 
 static void led_breath(pLedHandle pLed) {
-    static uint32_t time_old = 0;
-
-    if (!pLed->breath.step || !pLed->breath.set_time)
+    if (!pLed->breath.set_time)
         return;
 
-    if (pLed->breath.time + time_old <= time_get()) {
-        if (abs((int8_t)pLed->breath.set_level - (int8_t)pLed->breath.level) < pLed->breath.step) {
-            pLed->breath.level = pLed->breath.set_level;
-        } else if (pLed->breath.set_level > pLed->breath.level) {
-            pLed->breath.level += pLed->breath.step;
+    if (pLed->breath.time + pLed->breath.time_old <= time_get()) {
+        pLed->breath.time_old = time_get();
+        if (pLed->breath.set_level > pLed->breath.level) {
+            pLed->breath.level++;
         } else if (pLed->breath.set_level < pLed->breath.level) {
-            pLed->breath.level -= pLed->breath.step;
+            pLed->breath.level--;
         } else {
             pLed->breath.set_time = 0;
-            pLed->breath.step = 0;
         }
         if (pLed->led_level_set) {
         	if (pLed->blink.toggle_num) {
@@ -44,7 +40,6 @@ static void led_breath(pLedHandle pLed) {
         		pLed->led_level_set(pLed->breath.level);
         	}
         }
-        time_old = time_get();
     }
 }
 
@@ -107,9 +102,13 @@ void mars_led_blink_start(uint8_t id, BLINK_FREQ freq, uint32_t time) {
         tmp = tmp->next;
     }
 
+    uint8_t flag = 0;
+    if (tmp->blink.toggle_num % 2)
+        flag = 1;
+
     tmp->blink.toggle_time = freq;
     tmp->blink.toggle_num = time / freq;
-    if (tmp->blink.toggle_num % 2)
+    if (tmp->blink.toggle_num % 2 || flag)
         tmp->blink.toggle_num++;
 
     tmp->blink.time = time_get();
@@ -145,8 +144,8 @@ void mars_led_breath_start(uint8_t id, uint8_t level, uint32_t time) {
 
     tmp->breath.set_level = level;
     tmp->breath.set_time = time;
-    tmp->breath.time = time / 100;
-    tmp->breath.step = abs((int8_t)tmp->breath.set_level - (int8_t)tmp->breath.level) / 100;
+    tmp->breath.time_old = time_get();
+    tmp->breath.time = time / (abs(tmp->breath.set_level - tmp->breath.level));
 }
 
 void mars_led_breath_stop(uint8_t id) {
@@ -160,5 +159,4 @@ void mars_led_breath_stop(uint8_t id) {
 
     tmp->breath.set_level = tmp->breath.level;
     tmp->breath.set_time = 0;
-    tmp->breath.step = 0;
 }

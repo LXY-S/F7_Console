@@ -26,7 +26,7 @@ typedef struct {
     uint8_t set_level;
     uint8_t max_level;
     uint8_t min_level;
-    uint32_t step;
+    uint32_t time_old;
     uint32_t set_time;  // ms
     uint32_t time;      // ms
 } BreathConfig;
