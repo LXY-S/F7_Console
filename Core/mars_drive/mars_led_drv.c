@@ -160,3 +160,25 @@ void mars_led_breath_stop(uint8_t id) {
     tmp->breath.set_level = tmp->breath.level;
     tmp->breath.set_time = 0;
 }
+
+void mars_led_switch(uint8_t id, bool onoff) {
+    if (id == 0 || id > mLedNum)
+        return;
+
+    pLedHandle tmp = mLeds;
+    while (tmp->id != id) {
+        tmp = tmp->next;
+    }
+
+    if (tmp->led_level_set)
+        tmp->led_level_set(onoff ? tmp->breath.level : 0);
+}
+
+void mars_leds_switch(bool onoff) {
+    pLedHandle tmp = mLeds;
+    while (tmp) {
+        if (tmp->led_level_set)
+            tmp->led_level_set(onoff ? tmp->breath.level : 0);
+        tmp = tmp->next;
+    }
+}

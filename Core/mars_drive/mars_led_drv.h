@@ -6,6 +6,7 @@
 #define MARS_LED_DRV_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef enum {
     BLINK_FREQ_20HZ = 25U,
@@ -53,5 +54,7 @@ void mars_led_blink_start(uint8_t id, BLINK_FREQ freq, uint32_t time);
 void mars_led_blink_stop(uint8_t id);
 void mars_led_breath_start(uint8_t id, uint8_t level, uint32_t time);
 void mars_led_breath_stop(uint8_t id);
+void mars_led_switch(uint8_t id, bool onoff);
+void mars_leds_switch(bool onoff);
 
 #endif //MARS_LED_DRV_H
