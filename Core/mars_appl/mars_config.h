@@ -14,9 +14,7 @@
 
 void shell_init(void);
 void shell_output(uint8_t *pData, uint16_t len);
-
 void led_init(void);
-
 void task_init(void);
 
 #endif //MARS_CONFIG_H

@@ -8,6 +8,4 @@
 void mars_app_init(void);
 void mars_app_run(void);
 
-
-
 #endif //MARS_APP_H

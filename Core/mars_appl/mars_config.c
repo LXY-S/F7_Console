@@ -41,7 +41,7 @@ static void led_yellow_level_set(uint8_t value) {
         yellow_flag = true;
     else
         yellow_flag = false;
-    *((uint32_t *)0x4000043C) = value * 10;
+    *((uint32_t *) 0x4000043C) = value * 10;
 }
 
 static void led_yellow_on(void) {
@@ -68,7 +68,7 @@ static void led_blue_level_set(uint8_t value) {
         blue_flag = true;
     else
         blue_flag = false;
-	*((uint32_t *)0x40000838) = value * 10;
+    *((uint32_t *) 0x40000838) = value * 10;
 }
 
 static void led_blue_on(void) {
@@ -94,7 +94,7 @@ static void led_red_level_set(uint8_t value) {
         red_flag = true;
     else
         red_flag = false;
-	*((uint32_t *)0x40001834) = value * 10;
+    *((uint32_t *) 0x40001834) = value * 10;
 }
 
 static void led_red_on(void) {
@@ -162,20 +162,21 @@ void led_init(void) {
 
 /* key config start */
 #define KEY_VALUE_1     1
+
 static void key1_single_event(void) {
-    HAL_UART_Transmit(&huart3, (uint8_t *)"key1_single_event()\n", 20, 0xFFFF);
+    HAL_UART_Transmit(&huart3, (uint8_t *) "key1_single_event()\n", 20, 0xFFFF);
 }
 
 static void key1_double_event(void) {
-    HAL_UART_Transmit(&huart3, (uint8_t *)"key1_double_event()\n", 20, 0xFFFF);
+    HAL_UART_Transmit(&huart3, (uint8_t *) "key1_double_event()\n", 20, 0xFFFF);
 }
 
 static void key1_long_event(void) {
-    HAL_UART_Transmit(&huart3, (uint8_t *)"key1_long_event()\n", 18, 0xFFFF);
+    HAL_UART_Transmit(&huart3, (uint8_t *) "key1_long_event()\n", 18, 0xFFFF);
 }
 
 static void key1_up_event(void) {
-    HAL_UART_Transmit(&huart3, (uint8_t *)"key1_up_event()\n", 16, 0xFFFF);
+    HAL_UART_Transmit(&huart3, (uint8_t *) "key1_up_event()\n", 16, 0xFFFF);
 }
 
 KeyHandle mKey = {

@@ -7,7 +7,7 @@
 #include "tim.h"
 
 void mars_app_init(void) {
-	HAL_TIM_Base_Start_IT(&htim7);
+    HAL_TIM_Base_Start_IT(&htim7);
     mars_shell_init(shell_init, shell_output);
     mars_task_init(task_init);
 }

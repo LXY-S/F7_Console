@@ -33,12 +33,12 @@ static void led_breath(pLedHandle pLed) {
             pLed->breath.set_time = 0;
         }
         if (pLed->led_level_set) {
-        	if (pLed->blink.toggle_num) {
-        		if (pLed->blink.toggle_num % 2)
-        			pLed->led_level_set(pLed->breath.level);
-        	} else {
-        		pLed->led_level_set(pLed->breath.level);
-        	}
+            if (pLed->blink.toggle_num) {
+                if (pLed->blink.toggle_num % 2)
+                    pLed->led_level_set(pLed->breath.level);
+            } else {
+                pLed->led_level_set(pLed->breath.level);
+            }
         }
     }
 }
