@@ -107,7 +107,7 @@ static void shell(uint16_t argc, uint8_t *argv[]) {
     switch (argc) {
         case 1:
             if (strcmp((char *) mStr[0], "mars") == 0) {
-                mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|0ff>\n", 41);
+                mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|off>\n", 41);
             } else {
 
             }
@@ -126,7 +126,7 @@ static void shell(uint16_t argc, uint8_t *argv[]) {
                     mShellQueue.output((uint8_t *) " _/      _/  _/    _/  _/            _/_/     \n", 47);
                     mShellQueue.output((uint8_t *) "_/      _/    _/_/_/  _/        _/_/_/        \n", 47);
                 } else {
-                    mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|0ff>\n", 41);
+                    mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|off>\n", 41);
                 }
             }
             break;
@@ -160,7 +160,7 @@ static void shell(uint16_t argc, uint8_t *argv[]) {
                         mars_leds_switch(0);
                     }
                 } else {
-                    mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|0ff>\n", 41);
+                    mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|off>\n", 41);
                 }
             }
             break;
@@ -169,12 +169,12 @@ static void shell(uint16_t argc, uint8_t *argv[]) {
                 if (strncmp((char *) mStr[1], "led", 3) == 0) {
                     led_shell();
                 } else {
-                    mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|0ff>\n", 41);
+                    mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|off>\n", 41);
                 }
             }
             break;
         default:
-            mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|0ff>\n", 41);
+            mShellQueue.output((uint8_t *) "mars\ninfo\nlogo\nled\t<blink|breath|on|off>\n", 41);
             break;
     }
 }
