@@ -182,7 +182,7 @@ static void key1_up_event(void) {
 KeyHandle mKey = {
         .value = KEY_VALUE_1,
         .press_time = 2000,
-        .ins_time = 250,
+        .ins_time = 300,
         .single_event = key1_single_event,
         .double_event = key1_double_event,
         .long_event = key1_long_event,

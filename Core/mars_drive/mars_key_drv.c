@@ -98,17 +98,19 @@ void mars_key_proc(void) {
 
         if ((Key_First != 0) && (Key_Second == 0) &&
             (time_get() - Key_Time_Down_First > key_Record->press_time)) { //长按按下
-            if (key_Record->long_event)
+            if (key_Record->long_event) {
                 key_Record->long_event();
-            if (key_Record->up_event)
-                long_up_event = key_Record->up_event;
+            }
+            long_up_event = key_Record->up_event;
             key_Record = NULL;  //清零
             Key_First = 0;
         }
     }
 
-    if (Key_Up && long_up_event) {  //长按抬起
-        long_up_event();
+    if (Key_Up) {  //长按抬起
+        if (long_up_event) {
+            long_up_event();
+        }
         longFlag = 1;
         long_up_event = NULL;
     }
