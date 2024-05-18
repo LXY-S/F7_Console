@@ -37,10 +37,7 @@ static bool blue_flag = false;
 static bool red_flag = false;
 
 static void led_yellow_level_set(uint8_t value) {
-    if (value)
-        yellow_flag = true;
-    else
-        yellow_flag = false;
+    yellow_flag = value > 0;
     *((uint32_t *) 0x4000043C) = value * 10;
 }
 
@@ -64,10 +61,7 @@ static void led_yellow_toggle(void) {
 }
 
 static void led_blue_level_set(uint8_t value) {
-    if (value)
-        blue_flag = true;
-    else
-        blue_flag = false;
+    blue_flag = value > 0;
     *((uint32_t *) 0x40000838) = value * 10;
 }
 
@@ -90,10 +84,7 @@ static void led_blue_toggle(void) {
 }
 
 static void led_red_level_set(uint8_t value) {
-    if (value)
-        red_flag = true;
-    else
-        red_flag = false;
+    red_flag = value > 0;
     *((uint32_t *) 0x40001834) = value * 10;
 }
 
