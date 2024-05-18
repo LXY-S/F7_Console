@@ -849,7 +849,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
   /* Update the SystemCoreClock global variable */
   SystemCoreClock = HAL_RCC_GetSysClockFreq() >> AHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos];
 
-  /* Configure the source of step base considering new system clocks settings*/
+  /* Configure the source of time base considering new system clocks settings*/
   HAL_InitTick(uwTickPrio);
 
   return HAL_OK;
@@ -992,7 +992,7 @@ void HAL_RCC_DisableCSS(void)
   * @note   This function can be used by the user application to compute the
   *         baudrate for the communication peripherals or configure other parameters.
   *
-  * @note   Each step SYSCLK changes, this function must be called to update the
+  * @note   Each time SYSCLK changes, this function must be called to update the
   *         right SYSCLK value. Otherwise, any configuration based on this function will be incorrect.
   *
   *
@@ -1047,7 +1047,7 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
 
 /**
   * @brief  Returns the HCLK frequency
-  * @note   Each step HCLK changes, this function must be called to update the
+  * @note   Each time HCLK changes, this function must be called to update the
   *         right HCLK value. Otherwise, any configuration based on this function will be incorrect.
   * @note   The SystemCoreClock CMSIS variable is used to store System Clock Frequency.
   * @retval HCLK frequency
@@ -1059,7 +1059,7 @@ uint32_t HAL_RCC_GetHCLKFreq(void)
 
 /**
   * @brief  Returns the PCLK1 frequency
-  * @note   Each step PCLK1 changes, this function must be called to update the
+  * @note   Each time PCLK1 changes, this function must be called to update the
   *         right PCLK1 value. Otherwise, any configuration based on this function will be incorrect.
   * @retval PCLK1 frequency
   */
@@ -1071,7 +1071,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
 
 /**
   * @brief  Returns the PCLK2 frequency
-  * @note   Each step PCLK2 changes, this function must be called to update the
+  * @note   Each time PCLK2 changes, this function must be called to update the
   *         right PCLK2 value. Otherwise, any configuration based on this function will be incorrect.
   * @retval PCLK2 frequency
   */

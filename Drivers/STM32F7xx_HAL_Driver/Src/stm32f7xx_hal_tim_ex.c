@@ -7,7 +7,7 @@
   *          functionalities of the Timer Extended peripheral:
   *           + Time Hall Sensor Interface Initialization
   *           + Time Hall Sensor Interface Start
-  *           + Time Complementary signal break and dead step configuration
+  *           + Time Complementary signal break and dead time configuration
   *           + Time Master and Slave synchronization configuration
   *           + Time Output Compare/PWM Channel Configuration (for channels 5 and 6)
   *           + Timer remapping capabilities configuration
@@ -28,7 +28,7 @@
   ==============================================================================
   [..]
     The Timer Extended features include:
-    (#) Complementary outputs with programmable dead-step for :
+    (#) Complementary outputs with programmable dead-time for :
         (++) Output Compare
         (++) PWM generation (Edge and Center-aligned Mode)
         (++) One-pulse mode output
@@ -1771,7 +1771,7 @@ HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t 
       (+) Configure the commutation event in case of use of the Hall sensor interface.
       (+) Configure Output channels for OC and PWM mode.
 
-      (+) Configure Complementary channels, break features and dead step.
+      (+) Configure Complementary channels, break features and dead time.
       (+) Configure Master synchronization.
       (+) Configure timer remapping capabilities.
       (+) Enable or disable channel grouping.
@@ -1786,7 +1786,7 @@ HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t 
   *        update the configuration at each commutation detection on the TRGI input of the Timer,
   *        the typical use of this feature is with the use of another Timer(interface Timer)
   *        configured in Hall sensor interface, this interface Timer will generate the
-  *        commutation at its TRGO output (connected to Timer used in this function) each step
+  *        commutation at its TRGO output (connected to Timer used in this function) each time
   *        the TI1 of the Interface Timer detect a commutation at its input TI1.
   * @param  htim TIM handle
   * @param  InputTrigger the Internal trigger corresponding to the Timer Interfacing with the Hall sensor
@@ -1842,7 +1842,7 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent(TIM_HandleTypeDef *htim, uint32_t 
   *        update the configuration at each commutation detection on the TRGI input of the Timer,
   *        the typical use of this feature is with the use of another Timer(interface Timer)
   *        configured in Hall sensor interface, this interface Timer will generate the
-  *        commutation at its TRGO output (connected to Timer used in this function) each step
+  *        commutation at its TRGO output (connected to Timer used in this function) each time
   *        the TI1 of the Interface Timer detect a commutation at its input TI1.
   * @param  htim TIM handle
   * @param  InputTrigger the Internal trigger corresponding to the Timer Interfacing with the Hall sensor
@@ -1898,7 +1898,7 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_IT(TIM_HandleTypeDef *htim, uint32
   *        update the configuration at each commutation detection on the TRGI input of the Timer,
   *        the typical use of this feature is with the use of another Timer(interface Timer)
   *        configured in Hall sensor interface, this interface Timer will generate the
-  *        commutation at its TRGO output (connected to Timer used in this function) each step
+  *        commutation at its TRGO output (connected to Timer used in this function) each time
   *        the TI1 of the Interface Timer detect a commutation at its input TI1.
   * @note  The user should configure the DMA in his own software, in This function only the COMDE bit is set
   * @param  htim TIM handle
@@ -2027,7 +2027,7 @@ HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
 }
 
 /**
-  * @brief  Configures the Break feature, dead step, Lock level, OSSI/OSSR State
+  * @brief  Configures the Break feature, dead time, Lock level, OSSI/OSSR State
   *         and the AOE(automatic output enable).
   * @param  htim TIM handle
   * @param  sBreakDeadTimeConfig pointer to a TIM_ConfigBreakDeadConfigTypeDef structure that
@@ -2058,7 +2058,7 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
   __HAL_LOCK(htim);
 
   /* Set the Lock level, the Break enable Bit and the Polarity, the OSSR State,
-     the OSSI State, the dead step value and the Automatic Output Enable Bit */
+     the OSSI State, the dead time value and the Automatic Output Enable Bit */
 
   /* Set the BDTR bits */
   MODIFY_REG(tmpbdtr, TIM_BDTR_DTG, sBreakDeadTimeConfig->DeadTime);
@@ -2384,7 +2384,7 @@ __weak void HAL_TIMEx_Break2Callback(TIM_HandleTypeDef *htim)
                 ##### Extended Peripheral State functions #####
   ==============================================================================
   [..]
-    This subsection permits to get in run-step the status of the peripheral
+    This subsection permits to get in run-time the status of the peripheral
     and the data flow.
 
 @endverbatim

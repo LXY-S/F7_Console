@@ -4675,7 +4675,7 @@ __weak void HAL_I2C_AbortCpltCallback(I2C_HandleTypeDef *hi2c)
             ##### Peripheral State, Mode and Error functions #####
  ===============================================================================
     [..]
-    This subsection permit to get in run-step the status of the peripheral
+    This subsection permit to get in run-time the status of the peripheral
     and the data flow.
 
 @endverbatim
@@ -6502,7 +6502,7 @@ static void I2C_DMASlaveTransmitCplt(DMA_HandleTypeDef *hdma)
   else
   {
     /* No specific action, Master fully manage the generation of STOP condition */
-    /* Mean that this generation can arrive at any step, at the end or during DMA process */
+    /* Mean that this generation can arrive at any time, at the end or during DMA process */
     /* So STOP condition should be manage through Interrupt treatment */
   }
 }
@@ -6580,7 +6580,7 @@ static void I2C_DMASlaveReceiveCplt(DMA_HandleTypeDef *hdma)
   else
   {
     /* No specific action, Master fully manage the generation of STOP condition */
-    /* Mean that this generation can arrive at any step, at the end or during DMA process */
+    /* Mean that this generation can arrive at any time, at the end or during DMA process */
     /* So STOP condition should be manage through Interrupt treatment */
   }
 }
@@ -7133,7 +7133,7 @@ static void I2C_Disable_IRQ(I2C_HandleTypeDef *hi2c, uint16_t InterruptRequest)
   }
 
   /* Disable interrupts only at the end */
-  /* to avoid a breaking situation like at "t" step */
+  /* to avoid a breaking situation like at "t" time */
   /* all disable interrupts request are not done */
   __HAL_I2C_DISABLE_IT(hi2c, tmpisr);
 }

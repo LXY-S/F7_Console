@@ -58,7 +58,7 @@ typedef struct
   uint32_t ClockDivision;     /*!< Specifies the clock division.
                                    This parameter can be a value of @ref TIM_ClockDivision */
 
-  uint32_t RepetitionCounter;  /*!< Specifies the repetition counter value. Each step the RCR downcounter
+  uint32_t RepetitionCounter;  /*!< Specifies the repetition counter value. Each time the RCR downcounter
                                     reaches zero, an update event is generated and counting restarts
                                     from the RCR value (N).
                                     This means in PWM mode that (N+1) corresponds to:
@@ -264,7 +264,7 @@ typedef struct
 } TIM_SlaveConfigTypeDef;
 
 /**
-  * @brief  TIM Break input(s) and Dead step configuration Structure definition
+  * @brief  TIM Break input(s) and Dead time configuration Structure definition
   * @note   2 break inputs can be configured (BKIN and BKIN2) with configurable
   *        filter and polarity.
   */
@@ -672,7 +672,7 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
 /** @defgroup TIM_Input_Capture_Prescaler TIM Input Capture Prescaler
   * @{
   */
-#define TIM_ICPSC_DIV1                     0x00000000U                          /*!< Capture performed each step an edge is detected on the capture input */
+#define TIM_ICPSC_DIV1                     0x00000000U                          /*!< Capture performed each time an edge is detected on the capture input */
 #define TIM_ICPSC_DIV2                     TIM_CCMR1_IC1PSC_0                   /*!< Capture performed once every 2 events                                */
 #define TIM_ICPSC_DIV4                     TIM_CCMR1_IC1PSC_1                   /*!< Capture performed once every 4 events                                */
 #define TIM_ICPSC_DIV8                     TIM_CCMR1_IC1PSC                     /*!< Capture performed once every 8 events                                */
@@ -1439,7 +1439,7 @@ mode.
 #define __HAL_TIM_GET_COUNTER(__HANDLE__)  ((__HANDLE__)->Instance->CNT)
 
 /**
-  * @brief  Set the TIM Autoreload Register value on runtime without calling another step any Init function.
+  * @brief  Set the TIM Autoreload Register value on runtime without calling another time any Init function.
   * @param  __HANDLE__ TIM handle.
   * @param  __AUTORELOAD__ specifies the Counter register new value.
   * @retval None
@@ -1458,7 +1458,7 @@ mode.
 #define __HAL_TIM_GET_AUTORELOAD(__HANDLE__)  ((__HANDLE__)->Instance->ARR)
 
 /**
-  * @brief  Set the TIM Clock Division value on runtime without calling another step any Init function.
+  * @brief  Set the TIM Clock Division value on runtime without calling another time any Init function.
   * @param  __HANDLE__ TIM handle.
   * @param  __CKD__ specifies the clock division value.
   *          This parameter can be one of the following value:
@@ -1485,7 +1485,7 @@ mode.
 #define __HAL_TIM_GET_CLOCKDIVISION(__HANDLE__)  ((__HANDLE__)->Instance->CR1 & TIM_CR1_CKD)
 
 /**
-  * @brief  Set the TIM Input Capture prescaler on runtime without calling another step HAL_TIM_IC_ConfigChannel()
+  * @brief  Set the TIM Input Capture prescaler on runtime without calling another time HAL_TIM_IC_ConfigChannel()
   *         function.
   * @param  __HANDLE__ TIM handle.
   * @param  __CHANNEL__ TIM Channels to be configured.
@@ -1530,7 +1530,7 @@ mode.
    (((__HANDLE__)->Instance->CCMR2 & TIM_CCMR2_IC4PSC)) >> 8U)
 
 /**
-  * @brief  Set the TIM Capture Compare Register value on runtime without calling another step ConfigChannel function.
+  * @brief  Set the TIM Capture Compare Register value on runtime without calling another time ConfigChannel function.
   * @param  __HANDLE__ TIM handle.
   * @param  __CHANNEL__ TIM Channels to be configured.
   *          This parameter can be one of the following values:

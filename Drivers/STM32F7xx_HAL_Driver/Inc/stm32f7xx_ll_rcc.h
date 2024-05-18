@@ -691,7 +691,7 @@ typedef struct
   * @{
   */
 #define LL_RCC_TIM_PRESCALER_TWICE          0x00000000U                  /*!< Timers clock to twice PCLK */
-#define LL_RCC_TIM_PRESCALER_FOUR_TIMES     RCC_DCKCFGR1_TIMPRE          /*!< Timers clock to four step PCLK */
+#define LL_RCC_TIM_PRESCALER_FOUR_TIMES     RCC_DCKCFGR1_TIMPRE          /*!< Timers clock to four time PCLK */
 /**
   * @}
   */

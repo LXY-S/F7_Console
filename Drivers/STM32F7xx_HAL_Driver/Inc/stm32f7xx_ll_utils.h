@@ -246,7 +246,7 @@ __STATIC_INLINE uint32_t LL_GetPackageType(void)
   */
 
 /**
-  * @brief  This function configures the Cortex-M SysTick source of the step base.
+  * @brief  This function configures the Cortex-M SysTick source of the time base.
   * @param  HCLKFrequency HCLK frequency in Hz (can be calculated thanks to RCC helper macro)
   * @note   When a RTOS is used, it is recommended to avoid changing the SysTick 
   *         configuration by calling this function, for a delay use rather osDelay RTOS service.
@@ -255,7 +255,7 @@ __STATIC_INLINE uint32_t LL_GetPackageType(void)
   */
 __STATIC_INLINE void LL_InitTick(uint32_t HCLKFrequency, uint32_t Ticks)
 {
-  /* Configure the SysTick to have interrupt in 1ms step base */
+  /* Configure the SysTick to have interrupt in 1ms time base */
   SysTick->LOAD  = (uint32_t)((HCLKFrequency / Ticks) - 1UL);  /* set reload register */
   SysTick->VAL   = 0UL;                                       /* Load the SysTick Counter Value */
   SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |

@@ -83,7 +83,7 @@
 
      (#) Configure the TIM in the desired functioning mode using one of the
        Initialization function of this driver:
-       (++) HAL_TIM_Base_Init: to use the Timer to generate a simple step base
+       (++) HAL_TIM_Base_Init: to use the Timer to generate a simple time base
        (++) HAL_TIM_OC_Init and HAL_TIM_OC_ConfigChannel: to use the Timer to generate an
             Output Compare signal.
        (++) HAL_TIM_PWM_Init and HAL_TIM_PWM_ConfigChannel: to use the Timer to generate a
@@ -689,7 +689,7 @@ HAL_StatusTypeDef HAL_TIM_OC_Init(TIM_HandleTypeDef *htim)
   /* Set the TIM state */
   htim->State = HAL_TIM_STATE_BUSY;
 
-  /* Init the base step for the Output Compare */
+  /* Init the base time for the Output Compare */
   TIM_Base_SetConfig(htim->Instance,  &htim->Init);
 
   /* Initialize the DMA burst operation state */
@@ -1358,7 +1358,7 @@ HAL_StatusTypeDef HAL_TIM_PWM_Init(TIM_HandleTypeDef *htim)
   /* Set the TIM state */
   htim->State = HAL_TIM_STATE_BUSY;
 
-  /* Init the base step for the PWM */
+  /* Init the base time for the PWM */
   TIM_Base_SetConfig(htim->Instance, &htim->Init);
 
   /* Initialize the DMA burst operation state */
@@ -2026,7 +2026,7 @@ HAL_StatusTypeDef HAL_TIM_IC_Init(TIM_HandleTypeDef *htim)
   /* Set the TIM state */
   htim->State = HAL_TIM_STATE_BUSY;
 
-  /* Init the base step for the input capture */
+  /* Init the base time for the input capture */
   TIM_Base_SetConfig(htim->Instance, &htim->Init);
 
   /* Initialize the DMA burst operation state */
@@ -4038,7 +4038,7 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
    This section provides functions allowing to:
       (+) Configure The Input Output channels for OC, PWM, IC or One Pulse mode.
       (+) Configure External Clock source.
-      (+) Configure Complementary channels, break features and dead step.
+      (+) Configure Complementary channels, break features and dead time.
       (+) Configure Master and the Slave synchronization.
       (+) Configure the DMA Burst Mode.
 
@@ -6483,7 +6483,7 @@ HAL_StatusTypeDef HAL_TIM_UnRegisterCallback(TIM_HandleTypeDef *htim, HAL_TIM_Ca
                         ##### Peripheral State functions #####
   ==============================================================================
     [..]
-    This subsection permits to get in run-step the status of the peripheral
+    This subsection permits to get in run-time the status of the peripheral
     and the data flow.
 
 @endverbatim

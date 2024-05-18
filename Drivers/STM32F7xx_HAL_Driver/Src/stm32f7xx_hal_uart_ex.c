@@ -136,14 +136,14 @@ static void UARTEx_Wakeup_AddressConfig(UART_HandleTypeDef *huart, UART_WakeUpTy
   *          This parameter can be one of the following values:
   *          @arg @ref UART_DE_POLARITY_HIGH DE signal is active high
   *          @arg @ref UART_DE_POLARITY_LOW  DE signal is active low
-  * @param AssertionTime    Driver Enable assertion step:
-  *       5-bit value defining the step between the activation of the DE (Driver Enable)
-  *       signal and the beginning of the start bit. It is expressed in sample step
-  *       units (1/8 or 1/16 bit step, depending on the oversampling rate)
-  * @param DeassertionTime  Driver Enable deassertion step:
-  *       5-bit value defining the step between the end of the last stop bit, in a
+  * @param AssertionTime    Driver Enable assertion time:
+  *       5-bit value defining the time between the activation of the DE (Driver Enable)
+  *       signal and the beginning of the start bit. It is expressed in sample time
+  *       units (1/8 or 1/16 bit time, depending on the oversampling rate)
+  * @param DeassertionTime  Driver Enable deassertion time:
+  *       5-bit value defining the time between the end of the last stop bit, in a
   *       transmitted message, and the de-activation of the DE (Driver Enable) signal.
-  *       It is expressed in sample step units (1/8 or 1/16 bit step, depending on the
+  *       It is expressed in sample time units (1/8 or 1/16 bit time, depending on the
   *       oversampling rate).
   * @retval HAL status
   */
@@ -163,10 +163,10 @@ HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity,
   /* Check the Driver Enable polarity */
   assert_param(IS_UART_DE_POLARITY(Polarity));
 
-  /* Check the Driver Enable assertion step */
+  /* Check the Driver Enable assertion time */
   assert_param(IS_UART_ASSERTIONTIME(AssertionTime));
 
-  /* Check the Driver Enable deassertion step */
+  /* Check the Driver Enable deassertion time */
   assert_param(IS_UART_DEASSERTIONTIME(DeassertionTime));
 
   if (huart->gState == HAL_UART_STATE_RESET)
@@ -257,9 +257,9 @@ HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity,
         as triggers for updating reception status to caller :
        (+) Detection of inactivity period (RX line has not been active for a given period).
           (++) RX inactivity detected by IDLE event, i.e. RX line has been in idle state (normally high state)
-               for 1 frame step, after last received byte.
+               for 1 frame time, after last received byte.
           (++) RX inactivity detected by RTO, i.e. line has been in idle state
-               for a programmable step, after last received byte.
+               for a programmable time, after last received byte.
        (+) Detection that a specific character has been received.
 
     (#) There are two mode of transfer:

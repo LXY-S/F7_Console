@@ -734,7 +734,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsWakeUpPinPolarityLow(uint32_t WakeUpPin)
   * @brief  Enable Internal WakeUp
   * @rmtoll CSR1    EIWUP       LL_PWR_EnableInternalWakeUp
   * @note This API must be used when RTC events (Alarm A or Alarm B, RTC Tamper, RTC TimeStamp
-  *  or RTC Wakeup step) are used to wake up the system from Standby mode.
+  *  or RTC Wakeup time) are used to wake up the system from Standby mode.
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_EnableInternalWakeUp(void)

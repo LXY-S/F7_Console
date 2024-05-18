@@ -61,7 +61,7 @@
      -@-   The FIFO is used mainly to reduce bus usage and to allow data packing/unpacking: it is
            possible to set different Data Sizes for the Peripheral and the Memory (ie. you can set
            Half-Word data size for the peripheral to access its data register and set Word data size
-           for the Memory to gain in access step. Each two half words will be packed and written in
+           for the Memory to gain in access time. Each two half words will be packed and written in
            a single access to a Word in the Memory).
 
      -@-   When FIFO is disabled, it is not allowed to configure different Data Sizes for Source

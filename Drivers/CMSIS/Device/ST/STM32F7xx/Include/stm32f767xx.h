@@ -200,8 +200,8 @@ typedef struct
   __IO uint32_t SR;     /*!< ADC status register,                         Address offset: 0x00 */
   __IO uint32_t CR1;    /*!< ADC control register 1,                      Address offset: 0x04 */
   __IO uint32_t CR2;    /*!< ADC control register 2,                      Address offset: 0x08 */
-  __IO uint32_t SMPR1;  /*!< ADC sample step register 1,                  Address offset: 0x0C */
-  __IO uint32_t SMPR2;  /*!< ADC sample step register 2,                  Address offset: 0x10 */
+  __IO uint32_t SMPR1;  /*!< ADC sample time register 1,                  Address offset: 0x0C */
+  __IO uint32_t SMPR2;  /*!< ADC sample time register 2,                  Address offset: 0x10 */
   __IO uint32_t JOFR1;  /*!< ADC injected channel data offset register 1, Address offset: 0x14 */
   __IO uint32_t JOFR2;  /*!< ADC injected channel data offset register 2, Address offset: 0x18 */
   __IO uint32_t JOFR3;  /*!< ADC injected channel data offset register 3, Address offset: 0x1C */
@@ -235,7 +235,7 @@ typedef struct
 typedef struct
 {
   __IO uint32_t TIR;  /*!< CAN TX mailbox identifier register */
-  __IO uint32_t TDTR; /*!< CAN mailbox data length control and step stamp register */
+  __IO uint32_t TDTR; /*!< CAN mailbox data length control and time stamp register */
   __IO uint32_t TDLR; /*!< CAN mailbox data low register */
   __IO uint32_t TDHR; /*!< CAN mailbox data high register */
 } CAN_TxMailBox_TypeDef;
@@ -247,7 +247,7 @@ typedef struct
 typedef struct
 {
   __IO uint32_t RIR;  /*!< CAN receive FIFO mailbox identifier register */
-  __IO uint32_t RDTR; /*!< CAN receive FIFO mailbox data length control and step stamp register */
+  __IO uint32_t RDTR; /*!< CAN receive FIFO mailbox data length control and time stamp register */
   __IO uint32_t RDLR; /*!< CAN receive FIFO mailbox data low register */
   __IO uint32_t RDHR; /*!< CAN receive FIFO mailbox data high register */
 } CAN_FIFOMailBox_TypeDef;
@@ -790,7 +790,7 @@ typedef struct
 
 typedef struct
 {
-  __IO uint32_t TR;         /*!< RTC step register,                                         Address offset: 0x00 */
+  __IO uint32_t TR;         /*!< RTC time register,                                         Address offset: 0x00 */
   __IO uint32_t DR;         /*!< RTC date register,                                         Address offset: 0x04 */
   __IO uint32_t CR;         /*!< RTC control register,                                      Address offset: 0x08 */
   __IO uint32_t ISR;        /*!< RTC initialization and status register,                    Address offset: 0x0C */
@@ -802,9 +802,9 @@ typedef struct
   __IO uint32_t WPR;        /*!< RTC write protection register,                             Address offset: 0x24 */
   __IO uint32_t SSR;        /*!< RTC sub second register,                                   Address offset: 0x28 */
   __IO uint32_t SHIFTR;     /*!< RTC shift control register,                                Address offset: 0x2C */
-  __IO uint32_t TSTR;       /*!< RTC step stamp step register,                              Address offset: 0x30 */
-  __IO uint32_t TSDR;       /*!< RTC step stamp date register,                              Address offset: 0x34 */
-  __IO uint32_t TSSSR;      /*!< RTC step-stamp sub second register,                        Address offset: 0x38 */
+  __IO uint32_t TSTR;       /*!< RTC time stamp time register,                              Address offset: 0x30 */
+  __IO uint32_t TSDR;       /*!< RTC time stamp date register,                              Address offset: 0x34 */
+  __IO uint32_t TSSSR;      /*!< RTC time-stamp sub second register,                        Address offset: 0x38 */
   __IO uint32_t CALR;       /*!< RTC calibration register,                                  Address offset: 0x3C */
   __IO uint32_t TAMPCR;     /*!< RTC tamper configuration register,                         Address offset: 0x40 */
   __IO uint32_t ALRMASSR;   /*!< RTC alarm A sub second register,                           Address offset: 0x44 */
@@ -970,7 +970,7 @@ typedef struct
   __IO uint32_t CCR2;        /*!< TIM capture/compare register 2,      Address offset: 0x38 */
   __IO uint32_t CCR3;        /*!< TIM capture/compare register 3,      Address offset: 0x3C */
   __IO uint32_t CCR4;        /*!< TIM capture/compare register 4,      Address offset: 0x40 */
-  __IO uint32_t BDTR;        /*!< TIM break and dead-step register,    Address offset: 0x44 */
+  __IO uint32_t BDTR;        /*!< TIM break and dead-time register,    Address offset: 0x44 */
   __IO uint32_t DCR;         /*!< TIM DMA control register,            Address offset: 0x48 */
   __IO uint32_t DMAR;        /*!< TIM DMA address for full transfer,   Address offset: 0x4C */
   __IO uint32_t OR;          /*!< TIM option register,                 Address offset: 0x50 */
@@ -1008,7 +1008,7 @@ typedef struct
   __IO uint32_t CR2;    /*!< USART Control register 2,                 Address offset: 0x04 */
   __IO uint32_t CR3;    /*!< USART Control register 3,                 Address offset: 0x08 */
   __IO uint32_t BRR;    /*!< USART Baud rate register,                 Address offset: 0x0C */
-  __IO uint32_t GTPR;   /*!< USART Guard step and prescaler register,  Address offset: 0x10 */
+  __IO uint32_t GTPR;   /*!< USART Guard time and prescaler register,  Address offset: 0x10 */
   __IO uint32_t RTOR;   /*!< USART Receiver Time Out register,         Address offset: 0x14 */
   __IO uint32_t RQR;    /*!< USART Request register,                   Address offset: 0x18 */
   __IO uint32_t ISR;    /*!< USART Interrupt and status register,      Address offset: 0x1C */
@@ -1603,7 +1603,7 @@ typedef struct
   /** @addtogroup Hardware_Constant_Definition
     * @{
     */
-#define LSI_STARTUP_TIME 40U /*!< LSI Maximum startup step in us */
+#define LSI_STARTUP_TIME 40U /*!< LSI Maximum startup time in us */
 
   /**
     * @}
@@ -1753,55 +1753,55 @@ typedef struct
 /******************  Bit definition for ADC_SMPR1 register  *******************/
 #define ADC_SMPR1_SMP10_Pos       (0U)
 #define ADC_SMPR1_SMP10_Msk       (0x7UL << ADC_SMPR1_SMP10_Pos)                /*!< 0x00000007 */
-#define ADC_SMPR1_SMP10           ADC_SMPR1_SMP10_Msk                          /*!<SMP10[2:0] bits (Channel 10 Sample step selection) */
+#define ADC_SMPR1_SMP10           ADC_SMPR1_SMP10_Msk                          /*!<SMP10[2:0] bits (Channel 10 Sample time selection) */
 #define ADC_SMPR1_SMP10_0         (0x1UL << ADC_SMPR1_SMP10_Pos)                /*!< 0x00000001 */
 #define ADC_SMPR1_SMP10_1         (0x2UL << ADC_SMPR1_SMP10_Pos)                /*!< 0x00000002 */
 #define ADC_SMPR1_SMP10_2         (0x4UL << ADC_SMPR1_SMP10_Pos)                /*!< 0x00000004 */
 #define ADC_SMPR1_SMP11_Pos       (3U)
 #define ADC_SMPR1_SMP11_Msk       (0x7UL << ADC_SMPR1_SMP11_Pos)                /*!< 0x00000038 */
-#define ADC_SMPR1_SMP11           ADC_SMPR1_SMP11_Msk                          /*!<SMP11[2:0] bits (Channel 11 Sample step selection) */
+#define ADC_SMPR1_SMP11           ADC_SMPR1_SMP11_Msk                          /*!<SMP11[2:0] bits (Channel 11 Sample time selection) */
 #define ADC_SMPR1_SMP11_0         (0x1UL << ADC_SMPR1_SMP11_Pos)                /*!< 0x00000008 */
 #define ADC_SMPR1_SMP11_1         (0x2UL << ADC_SMPR1_SMP11_Pos)                /*!< 0x00000010 */
 #define ADC_SMPR1_SMP11_2         (0x4UL << ADC_SMPR1_SMP11_Pos)                /*!< 0x00000020 */
 #define ADC_SMPR1_SMP12_Pos       (6U)
 #define ADC_SMPR1_SMP12_Msk       (0x7UL << ADC_SMPR1_SMP12_Pos)                /*!< 0x000001C0 */
-#define ADC_SMPR1_SMP12           ADC_SMPR1_SMP12_Msk                          /*!<SMP12[2:0] bits (Channel 12 Sample step selection) */
+#define ADC_SMPR1_SMP12           ADC_SMPR1_SMP12_Msk                          /*!<SMP12[2:0] bits (Channel 12 Sample time selection) */
 #define ADC_SMPR1_SMP12_0         (0x1UL << ADC_SMPR1_SMP12_Pos)                /*!< 0x00000040 */
 #define ADC_SMPR1_SMP12_1         (0x2UL << ADC_SMPR1_SMP12_Pos)                /*!< 0x00000080 */
 #define ADC_SMPR1_SMP12_2         (0x4UL << ADC_SMPR1_SMP12_Pos)                /*!< 0x00000100 */
 #define ADC_SMPR1_SMP13_Pos       (9U)
 #define ADC_SMPR1_SMP13_Msk       (0x7UL << ADC_SMPR1_SMP13_Pos)                /*!< 0x00000E00 */
-#define ADC_SMPR1_SMP13           ADC_SMPR1_SMP13_Msk                          /*!<SMP13[2:0] bits (Channel 13 Sample step selection) */
+#define ADC_SMPR1_SMP13           ADC_SMPR1_SMP13_Msk                          /*!<SMP13[2:0] bits (Channel 13 Sample time selection) */
 #define ADC_SMPR1_SMP13_0         (0x1UL << ADC_SMPR1_SMP13_Pos)                /*!< 0x00000200 */
 #define ADC_SMPR1_SMP13_1         (0x2UL << ADC_SMPR1_SMP13_Pos)                /*!< 0x00000400 */
 #define ADC_SMPR1_SMP13_2         (0x4UL << ADC_SMPR1_SMP13_Pos)                /*!< 0x00000800 */
 #define ADC_SMPR1_SMP14_Pos       (12U)
 #define ADC_SMPR1_SMP14_Msk       (0x7UL << ADC_SMPR1_SMP14_Pos)                /*!< 0x00007000 */
-#define ADC_SMPR1_SMP14           ADC_SMPR1_SMP14_Msk                          /*!<SMP14[2:0] bits (Channel 14 Sample step selection) */
+#define ADC_SMPR1_SMP14           ADC_SMPR1_SMP14_Msk                          /*!<SMP14[2:0] bits (Channel 14 Sample time selection) */
 #define ADC_SMPR1_SMP14_0         (0x1UL << ADC_SMPR1_SMP14_Pos)                /*!< 0x00001000 */
 #define ADC_SMPR1_SMP14_1         (0x2UL << ADC_SMPR1_SMP14_Pos)                /*!< 0x00002000 */
 #define ADC_SMPR1_SMP14_2         (0x4UL << ADC_SMPR1_SMP14_Pos)                /*!< 0x00004000 */
 #define ADC_SMPR1_SMP15_Pos       (15U)
 #define ADC_SMPR1_SMP15_Msk       (0x7UL << ADC_SMPR1_SMP15_Pos)                /*!< 0x00038000 */
-#define ADC_SMPR1_SMP15           ADC_SMPR1_SMP15_Msk                          /*!<SMP15[2:0] bits (Channel 15 Sample step selection) */
+#define ADC_SMPR1_SMP15           ADC_SMPR1_SMP15_Msk                          /*!<SMP15[2:0] bits (Channel 15 Sample time selection) */
 #define ADC_SMPR1_SMP15_0         (0x1UL << ADC_SMPR1_SMP15_Pos)                /*!< 0x00008000 */
 #define ADC_SMPR1_SMP15_1         (0x2UL << ADC_SMPR1_SMP15_Pos)                /*!< 0x00010000 */
 #define ADC_SMPR1_SMP15_2         (0x4UL << ADC_SMPR1_SMP15_Pos)                /*!< 0x00020000 */
 #define ADC_SMPR1_SMP16_Pos       (18U)
 #define ADC_SMPR1_SMP16_Msk       (0x7UL << ADC_SMPR1_SMP16_Pos)                /*!< 0x001C0000 */
-#define ADC_SMPR1_SMP16           ADC_SMPR1_SMP16_Msk                          /*!<SMP16[2:0] bits (Channel 16 Sample step selection) */
+#define ADC_SMPR1_SMP16           ADC_SMPR1_SMP16_Msk                          /*!<SMP16[2:0] bits (Channel 16 Sample time selection) */
 #define ADC_SMPR1_SMP16_0         (0x1UL << ADC_SMPR1_SMP16_Pos)                /*!< 0x00040000 */
 #define ADC_SMPR1_SMP16_1         (0x2UL << ADC_SMPR1_SMP16_Pos)                /*!< 0x00080000 */
 #define ADC_SMPR1_SMP16_2         (0x4UL << ADC_SMPR1_SMP16_Pos)                /*!< 0x00100000 */
 #define ADC_SMPR1_SMP17_Pos       (21U)
 #define ADC_SMPR1_SMP17_Msk       (0x7UL << ADC_SMPR1_SMP17_Pos)                /*!< 0x00E00000 */
-#define ADC_SMPR1_SMP17           ADC_SMPR1_SMP17_Msk                          /*!<SMP17[2:0] bits (Channel 17 Sample step selection) */
+#define ADC_SMPR1_SMP17           ADC_SMPR1_SMP17_Msk                          /*!<SMP17[2:0] bits (Channel 17 Sample time selection) */
 #define ADC_SMPR1_SMP17_0         (0x1UL << ADC_SMPR1_SMP17_Pos)                /*!< 0x00200000 */
 #define ADC_SMPR1_SMP17_1         (0x2UL << ADC_SMPR1_SMP17_Pos)                /*!< 0x00400000 */
 #define ADC_SMPR1_SMP17_2         (0x4UL << ADC_SMPR1_SMP17_Pos)                /*!< 0x00800000 */
 #define ADC_SMPR1_SMP18_Pos       (24U)
 #define ADC_SMPR1_SMP18_Msk       (0x7UL << ADC_SMPR1_SMP18_Pos)                /*!< 0x07000000 */
-#define ADC_SMPR1_SMP18           ADC_SMPR1_SMP18_Msk                          /*!<SMP18[2:0] bits (Channel 18 Sample step selection) */
+#define ADC_SMPR1_SMP18           ADC_SMPR1_SMP18_Msk                          /*!<SMP18[2:0] bits (Channel 18 Sample time selection) */
 #define ADC_SMPR1_SMP18_0         (0x1UL << ADC_SMPR1_SMP18_Pos)                /*!< 0x01000000 */
 #define ADC_SMPR1_SMP18_1         (0x2UL << ADC_SMPR1_SMP18_Pos)                /*!< 0x02000000 */
 #define ADC_SMPR1_SMP18_2         (0x4UL << ADC_SMPR1_SMP18_Pos)                /*!< 0x04000000 */
@@ -1809,61 +1809,61 @@ typedef struct
 /******************  Bit definition for ADC_SMPR2 register  *******************/
 #define ADC_SMPR2_SMP0_Pos        (0U)
 #define ADC_SMPR2_SMP0_Msk        (0x7UL << ADC_SMPR2_SMP0_Pos)                 /*!< 0x00000007 */
-#define ADC_SMPR2_SMP0            ADC_SMPR2_SMP0_Msk                           /*!<SMP0[2:0] bits (Channel 0 Sample step selection) */
+#define ADC_SMPR2_SMP0            ADC_SMPR2_SMP0_Msk                           /*!<SMP0[2:0] bits (Channel 0 Sample time selection) */
 #define ADC_SMPR2_SMP0_0          (0x1UL << ADC_SMPR2_SMP0_Pos)                 /*!< 0x00000001 */
 #define ADC_SMPR2_SMP0_1          (0x2UL << ADC_SMPR2_SMP0_Pos)                 /*!< 0x00000002 */
 #define ADC_SMPR2_SMP0_2          (0x4UL << ADC_SMPR2_SMP0_Pos)                 /*!< 0x00000004 */
 #define ADC_SMPR2_SMP1_Pos        (3U)
 #define ADC_SMPR2_SMP1_Msk        (0x7UL << ADC_SMPR2_SMP1_Pos)                 /*!< 0x00000038 */
-#define ADC_SMPR2_SMP1            ADC_SMPR2_SMP1_Msk                           /*!<SMP1[2:0] bits (Channel 1 Sample step selection) */
+#define ADC_SMPR2_SMP1            ADC_SMPR2_SMP1_Msk                           /*!<SMP1[2:0] bits (Channel 1 Sample time selection) */
 #define ADC_SMPR2_SMP1_0          (0x1UL << ADC_SMPR2_SMP1_Pos)                 /*!< 0x00000008 */
 #define ADC_SMPR2_SMP1_1          (0x2UL << ADC_SMPR2_SMP1_Pos)                 /*!< 0x00000010 */
 #define ADC_SMPR2_SMP1_2          (0x4UL << ADC_SMPR2_SMP1_Pos)                 /*!< 0x00000020 */
 #define ADC_SMPR2_SMP2_Pos        (6U)
 #define ADC_SMPR2_SMP2_Msk        (0x7UL << ADC_SMPR2_SMP2_Pos)                 /*!< 0x000001C0 */
-#define ADC_SMPR2_SMP2            ADC_SMPR2_SMP2_Msk                           /*!<SMP2[2:0] bits (Channel 2 Sample step selection) */
+#define ADC_SMPR2_SMP2            ADC_SMPR2_SMP2_Msk                           /*!<SMP2[2:0] bits (Channel 2 Sample time selection) */
 #define ADC_SMPR2_SMP2_0          (0x1UL << ADC_SMPR2_SMP2_Pos)                 /*!< 0x00000040 */
 #define ADC_SMPR2_SMP2_1          (0x2UL << ADC_SMPR2_SMP2_Pos)                 /*!< 0x00000080 */
 #define ADC_SMPR2_SMP2_2          (0x4UL << ADC_SMPR2_SMP2_Pos)                 /*!< 0x00000100 */
 #define ADC_SMPR2_SMP3_Pos        (9U)
 #define ADC_SMPR2_SMP3_Msk        (0x7UL << ADC_SMPR2_SMP3_Pos)                 /*!< 0x00000E00 */
-#define ADC_SMPR2_SMP3            ADC_SMPR2_SMP3_Msk                           /*!<SMP3[2:0] bits (Channel 3 Sample step selection) */
+#define ADC_SMPR2_SMP3            ADC_SMPR2_SMP3_Msk                           /*!<SMP3[2:0] bits (Channel 3 Sample time selection) */
 #define ADC_SMPR2_SMP3_0          (0x1UL << ADC_SMPR2_SMP3_Pos)                 /*!< 0x00000200 */
 #define ADC_SMPR2_SMP3_1          (0x2UL << ADC_SMPR2_SMP3_Pos)                 /*!< 0x00000400 */
 #define ADC_SMPR2_SMP3_2          (0x4UL << ADC_SMPR2_SMP3_Pos)                 /*!< 0x00000800 */
 #define ADC_SMPR2_SMP4_Pos        (12U)
 #define ADC_SMPR2_SMP4_Msk        (0x7UL << ADC_SMPR2_SMP4_Pos)                 /*!< 0x00007000 */
-#define ADC_SMPR2_SMP4            ADC_SMPR2_SMP4_Msk                           /*!<SMP4[2:0] bits (Channel 4 Sample step selection) */
+#define ADC_SMPR2_SMP4            ADC_SMPR2_SMP4_Msk                           /*!<SMP4[2:0] bits (Channel 4 Sample time selection) */
 #define ADC_SMPR2_SMP4_0          (0x1UL << ADC_SMPR2_SMP4_Pos)                 /*!< 0x00001000 */
 #define ADC_SMPR2_SMP4_1          (0x2UL << ADC_SMPR2_SMP4_Pos)                 /*!< 0x00002000 */
 #define ADC_SMPR2_SMP4_2          (0x4UL << ADC_SMPR2_SMP4_Pos)                 /*!< 0x00004000 */
 #define ADC_SMPR2_SMP5_Pos        (15U)
 #define ADC_SMPR2_SMP5_Msk        (0x7UL << ADC_SMPR2_SMP5_Pos)                 /*!< 0x00038000 */
-#define ADC_SMPR2_SMP5            ADC_SMPR2_SMP5_Msk                           /*!<SMP5[2:0] bits (Channel 5 Sample step selection) */
+#define ADC_SMPR2_SMP5            ADC_SMPR2_SMP5_Msk                           /*!<SMP5[2:0] bits (Channel 5 Sample time selection) */
 #define ADC_SMPR2_SMP5_0          (0x1UL << ADC_SMPR2_SMP5_Pos)                 /*!< 0x00008000 */
 #define ADC_SMPR2_SMP5_1          (0x2UL << ADC_SMPR2_SMP5_Pos)                 /*!< 0x00010000 */
 #define ADC_SMPR2_SMP5_2          (0x4UL << ADC_SMPR2_SMP5_Pos)                 /*!< 0x00020000 */
 #define ADC_SMPR2_SMP6_Pos        (18U)
 #define ADC_SMPR2_SMP6_Msk        (0x7UL << ADC_SMPR2_SMP6_Pos)                 /*!< 0x001C0000 */
-#define ADC_SMPR2_SMP6            ADC_SMPR2_SMP6_Msk                           /*!<SMP6[2:0] bits (Channel 6 Sample step selection) */
+#define ADC_SMPR2_SMP6            ADC_SMPR2_SMP6_Msk                           /*!<SMP6[2:0] bits (Channel 6 Sample time selection) */
 #define ADC_SMPR2_SMP6_0          (0x1UL << ADC_SMPR2_SMP6_Pos)                 /*!< 0x00040000 */
 #define ADC_SMPR2_SMP6_1          (0x2UL << ADC_SMPR2_SMP6_Pos)                 /*!< 0x00080000 */
 #define ADC_SMPR2_SMP6_2          (0x4UL << ADC_SMPR2_SMP6_Pos)                 /*!< 0x00100000 */
 #define ADC_SMPR2_SMP7_Pos        (21U)
 #define ADC_SMPR2_SMP7_Msk        (0x7UL << ADC_SMPR2_SMP7_Pos)                 /*!< 0x00E00000 */
-#define ADC_SMPR2_SMP7            ADC_SMPR2_SMP7_Msk                           /*!<SMP7[2:0] bits (Channel 7 Sample step selection) */
+#define ADC_SMPR2_SMP7            ADC_SMPR2_SMP7_Msk                           /*!<SMP7[2:0] bits (Channel 7 Sample time selection) */
 #define ADC_SMPR2_SMP7_0          (0x1UL << ADC_SMPR2_SMP7_Pos)                 /*!< 0x00200000 */
 #define ADC_SMPR2_SMP7_1          (0x2UL << ADC_SMPR2_SMP7_Pos)                 /*!< 0x00400000 */
 #define ADC_SMPR2_SMP7_2          (0x4UL << ADC_SMPR2_SMP7_Pos)                 /*!< 0x00800000 */
 #define ADC_SMPR2_SMP8_Pos        (24U)
 #define ADC_SMPR2_SMP8_Msk        (0x7UL << ADC_SMPR2_SMP8_Pos)                 /*!< 0x07000000 */
-#define ADC_SMPR2_SMP8            ADC_SMPR2_SMP8_Msk                           /*!<SMP8[2:0] bits (Channel 8 Sample step selection) */
+#define ADC_SMPR2_SMP8            ADC_SMPR2_SMP8_Msk                           /*!<SMP8[2:0] bits (Channel 8 Sample time selection) */
 #define ADC_SMPR2_SMP8_0          (0x1UL << ADC_SMPR2_SMP8_Pos)                 /*!< 0x01000000 */
 #define ADC_SMPR2_SMP8_1          (0x2UL << ADC_SMPR2_SMP8_Pos)                 /*!< 0x02000000 */
 #define ADC_SMPR2_SMP8_2          (0x4UL << ADC_SMPR2_SMP8_Pos)                 /*!< 0x04000000 */
 #define ADC_SMPR2_SMP9_Pos        (27U)
 #define ADC_SMPR2_SMP9_Msk        (0x7UL << ADC_SMPR2_SMP9_Pos)                 /*!< 0x38000000 */
-#define ADC_SMPR2_SMP9            ADC_SMPR2_SMP9_Msk                           /*!<SMP9[2:0] bits (Channel 9 Sample step selection) */
+#define ADC_SMPR2_SMP9            ADC_SMPR2_SMP9_Msk                           /*!<SMP9[2:0] bits (Channel 9 Sample time selection) */
 #define ADC_SMPR2_SMP9_0          (0x1UL << ADC_SMPR2_SMP9_Pos)                 /*!< 0x08000000 */
 #define ADC_SMPR2_SMP9_1          (0x2UL << ADC_SMPR2_SMP9_Pos)                 /*!< 0x10000000 */
 #define ADC_SMPR2_SMP9_2          (0x4UL << ADC_SMPR2_SMP9_Pos)                 /*!< 0x20000000 */
@@ -6325,7 +6325,7 @@ typedef struct
 /******************  Bit definition for DFSDM_FLTCNVTIMR register ******************/
 #define DFSDM_FLTCNVTIMR_CNVCNT_Pos     (4U)
 #define DFSDM_FLTCNVTIMR_CNVCNT_Msk     (0xFFFFFFFUL << DFSDM_FLTCNVTIMR_CNVCNT_Pos) /*!< 0xFFFFFFF0 */
-#define DFSDM_FLTCNVTIMR_CNVCNT         DFSDM_FLTCNVTIMR_CNVCNT_Msk            /*!< CNVCNT[27:0]: 28-bit timer counting conversion step */
+#define DFSDM_FLTCNVTIMR_CNVCNT         DFSDM_FLTCNVTIMR_CNVCNT_Msk            /*!< CNVCNT[27:0]: 28-bit timer counting conversion time */
 
 /* Legacy Defines */
 #define DFSDM_FLTICR_CLRSCSDF_Pos        DFSDM_FLTICR_CLRSCDF_Pos
@@ -8586,7 +8586,7 @@ typedef struct
 /******************  Bit definition for FMC_PMEM register  ******************/
 #define FMC_PMEM_MEMSET3_Pos       (0U)
 #define FMC_PMEM_MEMSET3_Msk       (0xFFUL << FMC_PMEM_MEMSET3_Pos)             /*!< 0x000000FF */
-#define FMC_PMEM_MEMSET3           FMC_PMEM_MEMSET3_Msk                        /*!<MEMSET3[7:0] bits (Common memory 3 setup step) */
+#define FMC_PMEM_MEMSET3           FMC_PMEM_MEMSET3_Msk                        /*!<MEMSET3[7:0] bits (Common memory 3 setup time) */
 #define FMC_PMEM_MEMSET3_0         (0x01UL << FMC_PMEM_MEMSET3_Pos)             /*!< 0x00000001 */
 #define FMC_PMEM_MEMSET3_1         (0x02UL << FMC_PMEM_MEMSET3_Pos)             /*!< 0x00000002 */
 #define FMC_PMEM_MEMSET3_2         (0x04UL << FMC_PMEM_MEMSET3_Pos)             /*!< 0x00000004 */
@@ -8597,7 +8597,7 @@ typedef struct
 #define FMC_PMEM_MEMSET3_7         (0x80UL << FMC_PMEM_MEMSET3_Pos)             /*!< 0x00000080 */
 #define FMC_PMEM_MEMWAIT3_Pos      (8U)
 #define FMC_PMEM_MEMWAIT3_Msk      (0xFFUL << FMC_PMEM_MEMWAIT3_Pos)            /*!< 0x0000FF00 */
-#define FMC_PMEM_MEMWAIT3          FMC_PMEM_MEMWAIT3_Msk                       /*!<MEMWAIT3[7:0] bits (Common memory 3 wait step) */
+#define FMC_PMEM_MEMWAIT3          FMC_PMEM_MEMWAIT3_Msk                       /*!<MEMWAIT3[7:0] bits (Common memory 3 wait time) */
 #define FMC_PMEM_MEMWAIT3_0        (0x01UL << FMC_PMEM_MEMWAIT3_Pos)            /*!< 0x00000100 */
 #define FMC_PMEM_MEMWAIT3_1        (0x02UL << FMC_PMEM_MEMWAIT3_Pos)            /*!< 0x00000200 */
 #define FMC_PMEM_MEMWAIT3_2        (0x04UL << FMC_PMEM_MEMWAIT3_Pos)            /*!< 0x00000400 */
@@ -8608,7 +8608,7 @@ typedef struct
 #define FMC_PMEM_MEMWAIT3_7        (0x80UL << FMC_PMEM_MEMWAIT3_Pos)            /*!< 0x00008000 */
 #define FMC_PMEM_MEMHOLD3_Pos      (16U)
 #define FMC_PMEM_MEMHOLD3_Msk      (0xFFUL << FMC_PMEM_MEMHOLD3_Pos)            /*!< 0x00FF0000 */
-#define FMC_PMEM_MEMHOLD3          FMC_PMEM_MEMHOLD3_Msk                       /*!<MEMHOLD3[7:0] bits (Common memory 3 hold step) */
+#define FMC_PMEM_MEMHOLD3          FMC_PMEM_MEMHOLD3_Msk                       /*!<MEMHOLD3[7:0] bits (Common memory 3 hold time) */
 #define FMC_PMEM_MEMHOLD3_0        (0x01UL << FMC_PMEM_MEMHOLD3_Pos)            /*!< 0x00010000 */
 #define FMC_PMEM_MEMHOLD3_1        (0x02UL << FMC_PMEM_MEMHOLD3_Pos)            /*!< 0x00020000 */
 #define FMC_PMEM_MEMHOLD3_2        (0x04UL << FMC_PMEM_MEMHOLD3_Pos)            /*!< 0x00040000 */
@@ -8619,7 +8619,7 @@ typedef struct
 #define FMC_PMEM_MEMHOLD3_7        (0x80UL << FMC_PMEM_MEMHOLD3_Pos)            /*!< 0x00800000 */
 #define FMC_PMEM_MEMHIZ3_Pos       (24U)
 #define FMC_PMEM_MEMHIZ3_Msk       (0xFFUL << FMC_PMEM_MEMHIZ3_Pos)             /*!< 0xFF000000 */
-#define FMC_PMEM_MEMHIZ3           FMC_PMEM_MEMHIZ3_Msk                        /*!<MEMHIZ3[7:0] bits (Common memory 3 databus HiZ step) */
+#define FMC_PMEM_MEMHIZ3           FMC_PMEM_MEMHIZ3_Msk                        /*!<MEMHIZ3[7:0] bits (Common memory 3 databus HiZ time) */
 #define FMC_PMEM_MEMHIZ3_0         (0x01UL << FMC_PMEM_MEMHIZ3_Pos)             /*!< 0x01000000 */
 #define FMC_PMEM_MEMHIZ3_1         (0x02UL << FMC_PMEM_MEMHIZ3_Pos)             /*!< 0x02000000 */
 #define FMC_PMEM_MEMHIZ3_2         (0x04UL << FMC_PMEM_MEMHIZ3_Pos)             /*!< 0x04000000 */
@@ -8632,7 +8632,7 @@ typedef struct
 /******************  Bit definition for FMC_PATT register  ******************/
 #define FMC_PATT_ATTSET3_Pos       (0U)
 #define FMC_PATT_ATTSET3_Msk       (0xFFUL << FMC_PATT_ATTSET3_Pos)             /*!< 0x000000FF */
-#define FMC_PATT_ATTSET3           FMC_PATT_ATTSET3_Msk                        /*!<ATTSET3[7:0] bits (Attribute memory 3 setup step) */
+#define FMC_PATT_ATTSET3           FMC_PATT_ATTSET3_Msk                        /*!<ATTSET3[7:0] bits (Attribute memory 3 setup time) */
 #define FMC_PATT_ATTSET3_0         (0x01UL << FMC_PATT_ATTSET3_Pos)             /*!< 0x00000001 */
 #define FMC_PATT_ATTSET3_1         (0x02UL << FMC_PATT_ATTSET3_Pos)             /*!< 0x00000002 */
 #define FMC_PATT_ATTSET3_2         (0x04UL << FMC_PATT_ATTSET3_Pos)             /*!< 0x00000004 */
@@ -8643,7 +8643,7 @@ typedef struct
 #define FMC_PATT_ATTSET3_7         (0x80UL << FMC_PATT_ATTSET3_Pos)             /*!< 0x00000080 */
 #define FMC_PATT_ATTWAIT3_Pos      (8U)
 #define FMC_PATT_ATTWAIT3_Msk      (0xFFUL << FMC_PATT_ATTWAIT3_Pos)            /*!< 0x0000FF00 */
-#define FMC_PATT_ATTWAIT3          FMC_PATT_ATTWAIT3_Msk                       /*!<ATTWAIT3[7:0] bits (Attribute memory 3 wait step) */
+#define FMC_PATT_ATTWAIT3          FMC_PATT_ATTWAIT3_Msk                       /*!<ATTWAIT3[7:0] bits (Attribute memory 3 wait time) */
 #define FMC_PATT_ATTWAIT3_0        (0x01UL << FMC_PATT_ATTWAIT3_Pos)            /*!< 0x00000100 */
 #define FMC_PATT_ATTWAIT3_1        (0x02UL << FMC_PATT_ATTWAIT3_Pos)            /*!< 0x00000200 */
 #define FMC_PATT_ATTWAIT3_2        (0x04UL << FMC_PATT_ATTWAIT3_Pos)            /*!< 0x00000400 */
@@ -8654,7 +8654,7 @@ typedef struct
 #define FMC_PATT_ATTWAIT3_7        (0x80UL << FMC_PATT_ATTWAIT3_Pos)            /*!< 0x00008000 */
 #define FMC_PATT_ATTHOLD3_Pos      (16U)
 #define FMC_PATT_ATTHOLD3_Msk      (0xFFUL << FMC_PATT_ATTHOLD3_Pos)            /*!< 0x00FF0000 */
-#define FMC_PATT_ATTHOLD3          FMC_PATT_ATTHOLD3_Msk                       /*!<ATTHOLD3[7:0] bits (Attribute memory 3 hold step) */
+#define FMC_PATT_ATTHOLD3          FMC_PATT_ATTHOLD3_Msk                       /*!<ATTHOLD3[7:0] bits (Attribute memory 3 hold time) */
 #define FMC_PATT_ATTHOLD3_0        (0x01UL << FMC_PATT_ATTHOLD3_Pos)            /*!< 0x00010000 */
 #define FMC_PATT_ATTHOLD3_1        (0x02UL << FMC_PATT_ATTHOLD3_Pos)            /*!< 0x00020000 */
 #define FMC_PATT_ATTHOLD3_2        (0x04UL << FMC_PATT_ATTHOLD3_Pos)            /*!< 0x00040000 */
@@ -8665,7 +8665,7 @@ typedef struct
 #define FMC_PATT_ATTHOLD3_7        (0x80UL << FMC_PATT_ATTHOLD3_Pos)            /*!< 0x00800000 */
 #define FMC_PATT_ATTHIZ3_Pos       (24U)
 #define FMC_PATT_ATTHIZ3_Msk       (0xFFUL << FMC_PATT_ATTHIZ3_Pos)             /*!< 0xFF000000 */
-#define FMC_PATT_ATTHIZ3           FMC_PATT_ATTHIZ3_Msk                        /*!<ATTHIZ3[7:0] bits (Attribute memory 3 databus HiZ step) */
+#define FMC_PATT_ATTHIZ3           FMC_PATT_ATTHIZ3_Msk                        /*!<ATTHIZ3[7:0] bits (Attribute memory 3 databus HiZ time) */
 #define FMC_PATT_ATTHIZ3_0         (0x01UL << FMC_PATT_ATTHIZ3_Pos)             /*!< 0x01000000 */
 #define FMC_PATT_ATTHIZ3_1         (0x02UL << FMC_PATT_ATTHIZ3_Pos)             /*!< 0x02000000 */
 #define FMC_PATT_ATTHIZ3_2         (0x04UL << FMC_PATT_ATTHIZ3_Pos)             /*!< 0x04000000 */
@@ -8779,7 +8779,7 @@ typedef struct
 #define FMC_SDTR1_TXSR_3           (0x8UL << FMC_SDTR1_TXSR_Pos)                /*!< 0x00000080 */
 #define FMC_SDTR1_TRAS_Pos         (8U)
 #define FMC_SDTR1_TRAS_Msk         (0xFUL << FMC_SDTR1_TRAS_Pos)                /*!< 0x00000F00 */
-#define FMC_SDTR1_TRAS             FMC_SDTR1_TRAS_Msk                          /*!<TRAS[3:0] bits (Self refresh step) */
+#define FMC_SDTR1_TRAS             FMC_SDTR1_TRAS_Msk                          /*!<TRAS[3:0] bits (Self refresh time) */
 #define FMC_SDTR1_TRAS_0           (0x1UL << FMC_SDTR1_TRAS_Pos)                /*!< 0x00000100 */
 #define FMC_SDTR1_TRAS_1           (0x2UL << FMC_SDTR1_TRAS_Pos)                /*!< 0x00000200 */
 #define FMC_SDTR1_TRAS_2           (0x4UL << FMC_SDTR1_TRAS_Pos)                /*!< 0x00000400 */
@@ -8826,7 +8826,7 @@ typedef struct
 #define FMC_SDTR2_TXSR_3           (0x8UL << FMC_SDTR2_TXSR_Pos)                /*!< 0x00000080 */
 #define FMC_SDTR2_TRAS_Pos         (8U)
 #define FMC_SDTR2_TRAS_Msk         (0xFUL << FMC_SDTR2_TRAS_Pos)                /*!< 0x00000F00 */
-#define FMC_SDTR2_TRAS             FMC_SDTR2_TRAS_Msk                          /*!<TRAS[3:0] bits (Self refresh step) */
+#define FMC_SDTR2_TRAS             FMC_SDTR2_TRAS_Msk                          /*!<TRAS[3:0] bits (Self refresh time) */
 #define FMC_SDTR2_TRAS_0           (0x1UL << FMC_SDTR2_TRAS_Pos)                /*!< 0x00000100 */
 #define FMC_SDTR2_TRAS_1           (0x2UL << FMC_SDTR2_TRAS_Pos)                /*!< 0x00000200 */
 #define FMC_SDTR2_TRAS_2           (0x4UL << FMC_SDTR2_TRAS_Pos)                /*!< 0x00000400 */
@@ -9901,10 +9901,10 @@ typedef struct
 #define I2C_TIMINGR_SCLH             I2C_TIMINGR_SCLH_Msk                      /*!< SCL high period (master mode) */
 #define I2C_TIMINGR_SDADEL_Pos       (16U)
 #define I2C_TIMINGR_SDADEL_Msk       (0xFUL << I2C_TIMINGR_SDADEL_Pos)          /*!< 0x000F0000 */
-#define I2C_TIMINGR_SDADEL           I2C_TIMINGR_SDADEL_Msk                    /*!< Data hold step                */
+#define I2C_TIMINGR_SDADEL           I2C_TIMINGR_SDADEL_Msk                    /*!< Data hold time                */
 #define I2C_TIMINGR_SCLDEL_Pos       (20U)
 #define I2C_TIMINGR_SCLDEL_Msk       (0xFUL << I2C_TIMINGR_SCLDEL_Pos)          /*!< 0x00F00000 */
-#define I2C_TIMINGR_SCLDEL           I2C_TIMINGR_SCLDEL_Msk                    /*!< Data setup step               */
+#define I2C_TIMINGR_SCLDEL           I2C_TIMINGR_SCLDEL_Msk                    /*!< Data setup time               */
 #define I2C_TIMINGR_PRESC_Pos        (28U)
 #define I2C_TIMINGR_PRESC_Msk        (0xFUL << I2C_TIMINGR_PRESC_Pos)           /*!< 0xF0000000 */
 #define I2C_TIMINGR_PRESC            I2C_TIMINGR_PRESC_Msk                     /*!< Timings prescaler             */
@@ -15347,7 +15347,7 @@ typedef struct
 #define USART_GTPR_PSC                USART_GTPR_PSC_Msk                       /*!< PSC[7:0] bits (Prescaler value) */
 #define USART_GTPR_GT_Pos             (8U)
 #define USART_GTPR_GT_Msk             (0xFFUL << USART_GTPR_GT_Pos)             /*!< 0x0000FF00 */
-#define USART_GTPR_GT                 USART_GTPR_GT_Msk                        /*!< GT[7:0] bits (Guard step value) */
+#define USART_GTPR_GT                 USART_GTPR_GT_Msk                        /*!< GT[7:0] bits (Guard time value) */
 
 
 /*******************  Bit definition for USART_RTOR register  *****************/
@@ -15703,7 +15703,7 @@ typedef struct
 #define ETH_MACCR_APCS                                ETH_MACCR_APCS_Msk       /* Automatic Pad/CRC stripping */
 #define ETH_MACCR_BL_Pos                              (5U)
 #define ETH_MACCR_BL_Msk                              (0x3UL << ETH_MACCR_BL_Pos) /*!< 0x00000060 */
-#define ETH_MACCR_BL                                  ETH_MACCR_BL_Msk         /* Back-off limit: random integer number (r) of slot step delays before rescheduling
+#define ETH_MACCR_BL                                  ETH_MACCR_BL_Msk         /* Back-off limit: random integer number (r) of slot time delays before rescheduling
                                                        a transmission attempt during retries after a collision: 0 =< r <2^k */
 #define ETH_MACCR_BL_10                               0x00000000U              /* k = min (n, 10) */
 #define ETH_MACCR_BL_8                                0x00000020U              /* k = min (n, 8) */
@@ -15811,23 +15811,23 @@ typedef struct
 /* Bit definition for Ethernet MAC Flow Control Register */
 #define ETH_MACFCR_PT_Pos                             (16U)
 #define ETH_MACFCR_PT_Msk                             (0xFFFFUL << ETH_MACFCR_PT_Pos) /*!< 0xFFFF0000 */
-#define ETH_MACFCR_PT                                 ETH_MACFCR_PT_Msk        /* Pause step */
+#define ETH_MACFCR_PT                                 ETH_MACFCR_PT_Msk        /* Pause time */
 #define ETH_MACFCR_ZQPD_Pos                           (7U)
 #define ETH_MACFCR_ZQPD_Msk                           (0x1UL << ETH_MACFCR_ZQPD_Pos) /*!< 0x00000080 */
 #define ETH_MACFCR_ZQPD                               ETH_MACFCR_ZQPD_Msk      /* Zero-quanta pause disable */
 #define ETH_MACFCR_PLT_Pos                            (4U)
 #define ETH_MACFCR_PLT_Msk                            (0x3UL << ETH_MACFCR_PLT_Pos) /*!< 0x00000030 */
 #define ETH_MACFCR_PLT                                ETH_MACFCR_PLT_Msk       /* Pause low threshold: 4 cases */
-#define ETH_MACFCR_PLT_Minus4                         0x00000000U              /* Pause step minus 4 slot times */
+#define ETH_MACFCR_PLT_Minus4                         0x00000000U              /* Pause time minus 4 slot times */
 #define ETH_MACFCR_PLT_Minus28_Pos                    (4U)
 #define ETH_MACFCR_PLT_Minus28_Msk                    (0x1UL << ETH_MACFCR_PLT_Minus28_Pos) /*!< 0x00000010 */
-#define ETH_MACFCR_PLT_Minus28                        ETH_MACFCR_PLT_Minus28_Msk /* Pause step minus 28 slot times */
+#define ETH_MACFCR_PLT_Minus28                        ETH_MACFCR_PLT_Minus28_Msk /* Pause time minus 28 slot times */
 #define ETH_MACFCR_PLT_Minus144_Pos                   (5U)
 #define ETH_MACFCR_PLT_Minus144_Msk                   (0x1UL << ETH_MACFCR_PLT_Minus144_Pos) /*!< 0x00000020 */
-#define ETH_MACFCR_PLT_Minus144                       ETH_MACFCR_PLT_Minus144_Msk /* Pause step minus 144 slot times */
+#define ETH_MACFCR_PLT_Minus144                       ETH_MACFCR_PLT_Minus144_Msk /* Pause time minus 144 slot times */
 #define ETH_MACFCR_PLT_Minus256_Pos                   (4U)
 #define ETH_MACFCR_PLT_Minus256_Msk                   (0x3UL << ETH_MACFCR_PLT_Minus256_Pos) /*!< 0x00000030 */
-#define ETH_MACFCR_PLT_Minus256                       ETH_MACFCR_PLT_Minus256_Msk /* Pause step minus 256 slot times */
+#define ETH_MACFCR_PLT_Minus256                       ETH_MACFCR_PLT_Minus256_Msk /* Pause time minus 256 slot times */
 #define ETH_MACFCR_UPFD_Pos                           (3U)
 #define ETH_MACFCR_UPFD_Msk                           (0x1UL << ETH_MACFCR_UPFD_Pos) /*!< 0x00000008 */
 #define ETH_MACFCR_UPFD                               ETH_MACFCR_UPFD_Msk      /* Unicast pause frame detect */
@@ -15951,7 +15951,7 @@ typedef struct
 #define ETH_MACDBGR_RFRCS_FLUSHING                    ETH_MACDBGR_RFRCS_FLUSHING_Msk /* Flushing the frame data and status                                      */
 #define ETH_MACDBGR_RFRCS_STATUSREADING_Pos           (6U)
 #define ETH_MACDBGR_RFRCS_STATUSREADING_Msk           (0x1UL << ETH_MACDBGR_RFRCS_STATUSREADING_Pos) /*!< 0x00000040 */
-#define ETH_MACDBGR_RFRCS_STATUSREADING               ETH_MACDBGR_RFRCS_STATUSREADING_Msk /* Reading frame status (or step-stamp)                                    */
+#define ETH_MACDBGR_RFRCS_STATUSREADING               ETH_MACDBGR_RFRCS_STATUSREADING_Msk /* Reading frame status (or time-stamp)                                    */
 #define ETH_MACDBGR_RFRCS_DATAREADING_Pos             (5U)
 #define ETH_MACDBGR_RFRCS_DATAREADING_Msk             (0x1UL << ETH_MACDBGR_RFRCS_DATAREADING_Pos) /*!< 0x00000020 */
 #define ETH_MACDBGR_RFRCS_DATAREADING                 ETH_MACDBGR_RFRCS_DATAREADING_Msk /* Reading frame data                                                      */
@@ -16234,7 +16234,7 @@ typedef struct
 /* Bit definition for Ethernet PTP Sub-Second Increment Register */
 #define ETH_PTPSSIR_STSSI_Pos                         (0U)
 #define ETH_PTPSSIR_STSSI_Msk                         (0xFFUL << ETH_PTPSSIR_STSSI_Pos) /*!< 0x000000FF */
-#define ETH_PTPSSIR_STSSI                             ETH_PTPSSIR_STSSI_Msk    /* System step Sub-second increment value */
+#define ETH_PTPSSIR_STSSI                             ETH_PTPSSIR_STSSI_Msk    /* System time Sub-second increment value */
 
 /* Bit definition for Ethernet PTP Time Stamp High Register */
 #define ETH_PTPTSHR_STS_Pos                           (0U)
@@ -16244,7 +16244,7 @@ typedef struct
 /* Bit definition for Ethernet PTP Time Stamp Low Register */
 #define ETH_PTPTSLR_STPNS_Pos                         (31U)
 #define ETH_PTPTSLR_STPNS_Msk                         (0x1UL << ETH_PTPTSLR_STPNS_Pos) /*!< 0x80000000 */
-#define ETH_PTPTSLR_STPNS                             ETH_PTPTSLR_STPNS_Msk    /* System Time Positive or negative step */
+#define ETH_PTPTSLR_STPNS                             ETH_PTPTSLR_STPNS_Msk    /* System Time Positive or negative time */
 #define ETH_PTPTSLR_STSS_Pos                          (0U)
 #define ETH_PTPTSLR_STSS_Msk                          (0x7FFFFFFFUL << ETH_PTPTSLR_STSS_Pos) /*!< 0x7FFFFFFF */
 #define ETH_PTPTSLR_STSS                              ETH_PTPTSLR_STSS_Msk     /* System Time sub-seconds */
@@ -16257,7 +16257,7 @@ typedef struct
 /* Bit definition for Ethernet PTP Time Stamp Low Update Register */
 #define ETH_PTPTSLUR_TSUPNS_Pos                       (31U)
 #define ETH_PTPTSLUR_TSUPNS_Msk                       (0x1UL << ETH_PTPTSLUR_TSUPNS_Pos) /*!< 0x80000000 */
-#define ETH_PTPTSLUR_TSUPNS                           ETH_PTPTSLUR_TSUPNS_Msk  /* Time stamp update Positive or negative step */
+#define ETH_PTPTSLUR_TSUPNS                           ETH_PTPTSLUR_TSUPNS_Msk  /* Time stamp update Positive or negative time */
 #define ETH_PTPTSLUR_TSUSS_Pos                        (0U)
 #define ETH_PTPTSLUR_TSUSS_Msk                        (0x7FFFFFFFUL << ETH_PTPTSLUR_TSUSS_Pos) /*!< 0x7FFFFFFF */
 #define ETH_PTPTSLUR_TSUSS                            ETH_PTPTSLUR_TSUSS_Msk   /* Time stamp update sub-seconds */
@@ -16270,17 +16270,17 @@ typedef struct
 /* Bit definition for Ethernet PTP Target Time High Register */
 #define ETH_PTPTTHR_TTSH_Pos                          (0U)
 #define ETH_PTPTTHR_TTSH_Msk                          (0xFFFFFFFFUL << ETH_PTPTTHR_TTSH_Pos) /*!< 0xFFFFFFFF */
-#define ETH_PTPTTHR_TTSH                              ETH_PTPTTHR_TTSH_Msk     /* Target step stamp high */
+#define ETH_PTPTTHR_TTSH                              ETH_PTPTTHR_TTSH_Msk     /* Target time stamp high */
 
 /* Bit definition for Ethernet PTP Target Time Low Register */
 #define ETH_PTPTTLR_TTSL_Pos                          (0U)
 #define ETH_PTPTTLR_TTSL_Msk                          (0xFFFFFFFFUL << ETH_PTPTTLR_TTSL_Pos) /*!< 0xFFFFFFFF */
-#define ETH_PTPTTLR_TTSL                              ETH_PTPTTLR_TTSL_Msk     /* Target step stamp low */
+#define ETH_PTPTTLR_TTSL                              ETH_PTPTTLR_TTSL_Msk     /* Target time stamp low */
 
 /* Bit definition for Ethernet PTP Time Stamp Status Register */
 #define ETH_PTPTSSR_TSTTR_Pos                         (5U)
 #define ETH_PTPTSSR_TSTTR_Msk                         (0x1UL << ETH_PTPTSSR_TSTTR_Pos) /*!< 0x00000020 */
-#define ETH_PTPTSSR_TSTTR                             ETH_PTPTSSR_TSTTR_Msk    /* Time stamp target step reached */
+#define ETH_PTPTSSR_TSTTR                             ETH_PTPTSSR_TSTTR_Msk    /* Time stamp target time reached */
 #define ETH_PTPTSSR_TSSO_Pos                          (4U)
 #define ETH_PTPTSSR_TSSO_Msk                          (0x1UL << ETH_PTPTSSR_TSSO_Pos) /*!< 0x00000010 */
 #define ETH_PTPTSSR_TSSO                              ETH_PTPTSSR_TSSO_Msk     /* Time stamp seconds overflow */
@@ -16668,7 +16668,7 @@ typedef struct
 #define USB_OTG_GOTGCTL_CIDSTS                   USB_OTG_GOTGCTL_CIDSTS_Msk    /*!< Connector ID status */
 #define USB_OTG_GOTGCTL_DBCT_Pos                 (17U)
 #define USB_OTG_GOTGCTL_DBCT_Msk                 (0x1UL << USB_OTG_GOTGCTL_DBCT_Pos) /*!< 0x00020000 */
-#define USB_OTG_GOTGCTL_DBCT                     USB_OTG_GOTGCTL_DBCT_Msk      /*!< Long/short debounce step */
+#define USB_OTG_GOTGCTL_DBCT                     USB_OTG_GOTGCTL_DBCT_Msk      /*!< Long/short debounce time */
 #define USB_OTG_GOTGCTL_ASVLD_Pos                (18U)
 #define USB_OTG_GOTGCTL_ASVLD_Msk                (0x1UL << USB_OTG_GOTGCTL_ASVLD_Pos) /*!< 0x00040000 */
 #define USB_OTG_GOTGCTL_ASVLD                    USB_OTG_GOTGCTL_ASVLD_Msk     /*!< A-session valid  */
@@ -16803,7 +16803,7 @@ typedef struct
 #define USB_OTG_HFNUM_FRNUM                      USB_OTG_HFNUM_FRNUM_Msk       /*!< Frame number         */
 #define USB_OTG_HFNUM_FTREM_Pos                  (16U)
 #define USB_OTG_HFNUM_FTREM_Msk                  (0xFFFFUL << USB_OTG_HFNUM_FTREM_Pos) /*!< 0xFFFF0000 */
-#define USB_OTG_HFNUM_FTREM                      USB_OTG_HFNUM_FTREM_Msk       /*!< Frame step remaining */
+#define USB_OTG_HFNUM_FTREM                      USB_OTG_HFNUM_FTREM_Msk       /*!< Frame time remaining */
 
 /********************  Bit definition for USB_OTG_DSTS register  ********************/
 #define USB_OTG_DSTS_SUSPSTS_Pos                 (0U)
@@ -16862,7 +16862,7 @@ typedef struct
 #define USB_OTG_GUSBCFG_HNPCAP                   USB_OTG_GUSBCFG_HNPCAP_Msk    /*!< HNP-capable */
 #define USB_OTG_GUSBCFG_TRDT_Pos                 (10U)
 #define USB_OTG_GUSBCFG_TRDT_Msk                 (0xFUL << USB_OTG_GUSBCFG_TRDT_Pos) /*!< 0x00003C00 */
-#define USB_OTG_GUSBCFG_TRDT                     USB_OTG_GUSBCFG_TRDT_Msk      /*!< USB turnaround step */
+#define USB_OTG_GUSBCFG_TRDT                     USB_OTG_GUSBCFG_TRDT_Msk      /*!< USB turnaround time */
 #define USB_OTG_GUSBCFG_TRDT_0                   (0x1UL << USB_OTG_GUSBCFG_TRDT_Pos) /*!< 0x00000400 */
 #define USB_OTG_GUSBCFG_TRDT_1                   (0x2UL << USB_OTG_GUSBCFG_TRDT_Pos) /*!< 0x00000800 */
 #define USB_OTG_GUSBCFG_TRDT_2                   (0x4UL << USB_OTG_GUSBCFG_TRDT_Pos) /*!< 0x00001000 */
@@ -17293,7 +17293,7 @@ typedef struct
 /********************  Bit definition for USB_OTG_DVBUSDIS register  ********************/
 #define USB_OTG_DVBUSDIS_VBUSDT_Pos              (0U)
 #define USB_OTG_DVBUSDIS_VBUSDT_Msk              (0xFFFFUL << USB_OTG_DVBUSDIS_VBUSDT_Pos) /*!< 0x0000FFFF */
-#define USB_OTG_DVBUSDIS_VBUSDT                  USB_OTG_DVBUSDIS_VBUSDT_Msk   /*!< Device VBUS discharge step */
+#define USB_OTG_DVBUSDIS_VBUSDT                  USB_OTG_DVBUSDIS_VBUSDT_Msk   /*!< Device VBUS discharge time */
 
 /********************  Bit definition for OTG register  ********************/
 #define USB_OTG_NPTXFSA_Pos                      (0U)
@@ -17312,7 +17312,7 @@ typedef struct
 /********************  Bit definition for USB_OTG_DVBUSPULSE register  ********************/
 #define USB_OTG_DVBUSPULSE_DVBUSP_Pos            (0U)
 #define USB_OTG_DVBUSPULSE_DVBUSP_Msk            (0xFFFUL << USB_OTG_DVBUSPULSE_DVBUSP_Pos) /*!< 0x00000FFF */
-#define USB_OTG_DVBUSPULSE_DVBUSP                USB_OTG_DVBUSPULSE_DVBUSP_Msk /*!< Device VBUS pulsing step */
+#define USB_OTG_DVBUSPULSE_DVBUSP                USB_OTG_DVBUSPULSE_DVBUSP_Msk /*!< Device VBUS pulsing time */
 
 /********************  Bit definition for USB_OTG_GNPTXSTS register  ********************/
 #define USB_OTG_GNPTXSTS_NPTXFSAV_Pos            (0U)

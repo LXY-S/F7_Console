@@ -30,11 +30,11 @@ TIM_HandleTypeDef        htim6;
 /* Private functions ---------------------------------------------------------*/
 
 /**
-  * @brief  This function configures the TIM6 as a step base source.
-  *         The step source is configured  to have 1ms step base with a dedicated
+  * @brief  This function configures the TIM6 as a time base source.
+  *         The time source is configured  to have 1ms time base with a dedicated
   *         Tick interrupt priority.
   * @note   This function is called  automatically at the beginning of program after
-  *         reset by HAL_Init() or at any step when clock is configured, by HAL_RCC_ClockConfig().
+  *         reset by HAL_Init() or at any time when clock is configured, by HAL_RCC_ClockConfig().
   * @param  TickPriority: Tick interrupt priority.
   * @retval HAL status
   */
@@ -73,7 +73,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 
   /* Initialize TIMx peripheral as follow:
 
-  + Period = [(TIM6CLK/1000) - 1]. to have a (1/1000) s step base.
+  + Period = [(TIM6CLK/1000) - 1]. to have a (1/1000) s time base.
   + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
   + ClockDivision = 0
   + Counter direction = Up
@@ -87,7 +87,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   status = HAL_TIM_Base_Init(&htim6);
   if (status == HAL_OK)
   {
-    /* Start the TIM step Base generation in interrupt mode */
+    /* Start the TIM time Base generation in interrupt mode */
     status = HAL_TIM_Base_Start_IT(&htim6);
     if (status == HAL_OK)
     {
